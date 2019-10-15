@@ -1,5 +1,15 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+
+NOTE: This is still being developed and not ready for production and also come with no warranties at all.
+
+This project is to provide an application (system) to help an organisaztion to keep track of what Nuget packages all their applications are using.  Know what your apps are relying on can help mitigate issue when it comes to breaking changes and which of your apps could be affected by this.
+
+This also provides a sample of implementing the CQRS pattern in .Net Core with automatic registration of domain objects into the EF model.  For additional theory and info have a look at:
+https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
+
+This sample will also need the following project which will become a Nuget package in the future.
+https://github.com/BenVanZyl/SnowStorm
+
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
