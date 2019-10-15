@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-0901-Tbl-AspNetSecurity.sql" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-0902-Indx-AspNetSecurity.sql" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-0903-Fk-AspNetSecurity.sql" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-1001-Tbl-Repository.sql" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-1002-Tbl-Solution.sql" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-1003-Tbl-Project.sql" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-1004-Tbl-Package.sql" />
+    <None Remove="Scripts\01-Schema-Tables\20190906-1005-Tbl-ProjectPackage.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-0901-Tbl-AspNetSecurity.sql" />
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1004-Tbl-Package.sql" />
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-0902-Indx-AspNetSecurity.sql" />
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-0903-Fk-AspNetSecurity.sql" />
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1005-Tbl-ProjectPackage.sql" />
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1003-Tbl-Project.sql" />
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1002-Tbl-Solution.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1001-Tbl-Repository.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scripts\03-Data\" />
+    <Folder Include="Scripts\02-Schema-Other\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dbup-sqlserver" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration.abstractions\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

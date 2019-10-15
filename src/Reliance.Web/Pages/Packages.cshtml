@@ -1,0 +1,31 @@
+﻿@page
+@model Reliance.Web.Pages.PackagesModel
+@{
+    ViewData["Title"] = "Packages";
+}
+
+<h1>Packages</h1>
+
+<p>Listing packages and what projects are using the selected package.</p>
+
+<div class="row">
+    <div class="md-col-4">
+        <datalist id="packages">
+            @foreach (var p in Model.Packages)
+            {
+                <form asp-page-handler="" method="post">
+                    <option value="@p.Id">@p.Description</option>
+                </form>
+            }
+        </datalist>
+
+        @Html.ListBoxFor(m => m.SelectedPackage, new SelectList(Model.Packages, "Id", "Description"))
+
+    </div>
+    <div class="md-col-2">
+        &nbsp;
+    </div>
+    <div class="md-col-6">
+
+    </div>
+</div>
