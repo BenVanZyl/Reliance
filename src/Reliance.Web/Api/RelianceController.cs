@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Reliance.Web.Client.Api;
 using Reliance.Web.Services.Commands;
 using Reliance.Web.Services.Queries;
+using Reliance.Web.Services.Repositories;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace Reliance.Web.Api
     {
         private readonly IQueryExecutor _executor;
         private readonly IMediator _mediator;
+        private readonly MasterRepository _master;
 
-        public RelianceController(IQueryExecutor executor, IMediator mediator)
+        public RelianceController(IQueryExecutor executor, IMediator mediator, IMasterRepository master)
         {
             _executor = executor;
             _mediator = mediator;
+            _master = (MasterRepository) master;
         }
 
         [HttpGet]
@@ -26,7 +29,8 @@ namespace Reliance.Web.Api
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> GetRepositories()
         {
-            var results = await _executor.WithMapping<RepositoryDto>().ExecuteAsync(new GetRepositoriesQuery(), o => o.Name);
+            //var results = await _executor.WithMapping<RepositoryDto>().ExecuteAsync(new GetRepositoriesQuery(), o => o.Name);
+            var results = await _master.GetRepositories();
             return Ok(results);
         }
 

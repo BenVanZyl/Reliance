@@ -8,14 +8,15 @@
   <ItemGroup>
     <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-0901-Tbl-AspNetSecurity.sql" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-0902-Indx-AspNetSecurity.sql" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-0903-Fk-AspNetSecurity.sql" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-1001-Tbl-Repository.sql" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-1002-Tbl-Solution.sql" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-1003-Tbl-Project.sql" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-1004-Tbl-Package.sql" />
-    <None Remove="Scripts\01-Schema-Tables\20190906-1005-Tbl-ProjectPackage.sql" />
+    <None Remove="Scripts\00_Predeployment\20191118-0900-Reset.sql" />
+    <None Remove="Scripts\00_Predeployment\20191127-0900-Reset.sql" />
+    <None Remove="Scripts\01_Deployment\01_Schema_Tables\20190906-0900-Tbl-RepositoryOwner.sql" />
+    <None Remove="Scripts\01_Deployment\01_Schema_Tables\20190906-0901-Tbl-RepositoryOwnerApiKey.sql" />
+    <None Remove="Scripts\01_Deployment\01_Schema_Tables\20190906-1001-Tbl-Repository.sql" />
+    <None Remove="Scripts\01_Deployment\01_Schema_Tables\20190906-1002-Tbl-Solution.sql" />
+    <None Remove="Scripts\01_Deployment\01_Schema_Tables\20190906-1003-Tbl-Project.sql" />
+    <None Remove="Scripts\01_Deployment\01_Schema_Tables\20190906-1004-Tbl-Package.sql" />
+    <None Remove="Scripts\01_Deployment\01_Schema_Tables\20190906-1005-Tbl-ProjectPackage.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,22 +30,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-0901-Tbl-AspNetSecurity.sql" />
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1004-Tbl-Package.sql" />
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-0902-Indx-AspNetSecurity.sql" />
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-0903-Fk-AspNetSecurity.sql" />
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1005-Tbl-ProjectPackage.sql" />
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1003-Tbl-Project.sql" />
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1002-Tbl-Solution.sql" />
+    <EmbeddedResource Include="Scripts\00_Predeployment\20191127-0900-Reset.sql" />
+    <EmbeddedResource Include="Scripts\00_Predeployment\20191118-0900-Reset.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Schema_Tables\20190906-0901-Tbl-RepositoryOwnerApiKey.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Schema_Tables\20190906-0900-Tbl-RepositoryOwner.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Schema_Tables\20190906-1004-Tbl-Package.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Schema_Tables\20190906-1005-Tbl-ProjectPackage.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Schema_Tables\20190906-1003-Tbl-Project.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Schema_Tables\20190906-1002-Tbl-Solution.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\01-Schema-Tables\20190906-1001-Tbl-Repository.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Schema_Tables\20190906-1001-Tbl-Repository.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Scripts\03-Data\" />
-    <Folder Include="Scripts\02-Schema-Other\" />
+    <Folder Include="Scripts\01_Deployment\03_Data\" />
+    <Folder Include="Scripts\01_Deployment\02_Schema_Other\" />
+    <Folder Include="Scripts\02_Deploy_Only\01-Schema-Tables\" />
+    <Folder Include="Scripts\02_Deploy_Only\02-Schema-Other\" />
+    <Folder Include="Scripts\02_Deploy_Only\03-Data\" />
+    <Folder Include="Scripts\03_Test_Only\01-Schema-Tables\" />
+    <Folder Include="Scripts\03_Test_Only\02-Schema-Other\" />
+    <Folder Include="Scripts\03_Test_Only\03-Data\" />
   </ItemGroup>
 
   <ItemGroup>

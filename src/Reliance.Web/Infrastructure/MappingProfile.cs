@@ -8,6 +8,11 @@ namespace Reliance.Web.Infrastructure
     {
         public MappingProfile()
         {
+            CreateMap<RepositoryOwner, RepositoryOwnerDto>();
+
+            CreateMap<RepositoryOwnerApiKey, RepositoryOwnerApiKeyDto>()
+                .ForMember(t => t.CreatedOn, m => m.MapFrom(s => s.CreateDateTime));
+
             CreateMap<Repository, RepositoryDto>();
 
             CreateMap<Solution, SolutionDto>();

@@ -30,7 +30,7 @@ namespace Reliance.Web.Services.Commands
 
         public async Task<bool> Handle(PostRepositryDetailsCommand message, CancellationToken cancellationToken)
         {
-            var r = await Repository.Create(_executor, message.Data.RepositoryName);
+            var r = await Repository.Create(_executor, message.Data.RepositoryName, message.Data.OwnerId);
 
             foreach (var sDto in message.Data.Solutions)
             {

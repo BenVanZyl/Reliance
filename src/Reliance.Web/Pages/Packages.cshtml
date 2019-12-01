@@ -6,26 +6,56 @@
 
 <h1>Packages</h1>
 
-<p>Listing packages and what projects are using the selected package.</p>
+<div class="alert-info">Listing packages.  Select one to view more information.</div>
+<br />
+<br />
+@if (Model.PackageNames != null && Model.PackageNames.Count > 0)
+{
+    @foreach (var gs in Model.PackageNames)
+    {
+        <form asp-page-handler="PackageNameSelected" method="post">
+            <div class="row border">
+                <div class="col-md-12">
+                    <input type="hidden" name="packageName" value="@gs" />
+                    <button class="btn btn-default">@gs</button>
 
-<div class="row">
-    <div class="md-col-4">
-        <datalist id="packages">
-            @foreach (var p in Model.Packages)
-            {
-                <form asp-page-handler="" method="post">
-                    <option value="@p.Id">@p.Description</option>
-                </form>
-            }
-        </datalist>
 
-        @Html.ListBoxFor(m => m.SelectedPackage, new SelectList(Model.Packages, "Id", "Description"))
+                    @if (Model.Packages != null && Model.Packages.Count > 0 && gs == Model.SelectedPackageName)
+                    {
+                        <div class="row list-inline-item">
+                            <div class="col-md-2">
+                                Version
+                            </div>
+                            <div class="col-md-2">
+                                TargetFrameWork
+                            </div>
+                            <div class="col-md-2">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-6">&nbsp;</div>
+                        </div>
+                        @foreach (var pkg in Model.Packages)
+                        {
+                            <div class="row list-inline-item border-bottom">
+                                <div class="col-md-2">
+                                    @pkg.Version
+                                </div>
+                                <div class="col-md-2">
+                                    @pkg.TargetFrameWork
+                                </div>
+                                <div class="col-md-2">
+                                    &nbsp;
+                                    <input type="hidden" name="packageId" value="@pkg.Id" />
+                                    <button class="btn btn-info">...</button>
+                                </div>
+                                <div class="col-md-6">&nbsp;</div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </form>
+    }
+}
 
-    </div>
-    <div class="md-col-2">
-        &nbsp;
-    </div>
-    <div class="md-col-6">
 
-    </div>
-</div>

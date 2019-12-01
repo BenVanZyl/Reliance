@@ -9,8 +9,8 @@ namespace Reliance.Test.Infrastructure.SeedData
     {
         public static void Build(AppDbContext dbContext)
         {
-            dbContext.Set<Repository>().Add(new Repository("Repository1"));
-            var r1 = dbContext.Set<Repository>().FirstOrDefault(w => w.Name == "Repository1");
+            dbContext.Set<Repository>().Add(new Repository("Repository1", 1));
+            var r1 = dbContext.Set<Repository>().FirstOrDefault(w => w.Name == "Repository1" && w.OwnerId == 1);
 
             dbContext.Set<Solution>().Add(new Solution("Solution1", r1));
             var s1 = dbContext.Set<Solution>().FirstOrDefault(w => w.Name == "Solution1" && w.RepositoryId == r1.Id);
@@ -23,7 +23,6 @@ namespace Reliance.Test.Infrastructure.SeedData
             
             dbContext.Set<ProjectPackage>().Add(new ProjectPackage(p1, pkg1));
             var prjPkg1 = dbContext.Set<ProjectPackage>().FirstOrDefault(w => w.Project == p1 && w.Package == pkg1);
-
 
             dbContext.SaveChanges();
         }

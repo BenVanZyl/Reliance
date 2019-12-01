@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Reliance.Web.Data;
 using Reliance.Web.Infrastructure;
+using Reliance.Web.Services.Repositories;
 using SnowStorm.Infrastructure.Domain;
 using System.Reflection;
 
@@ -36,7 +37,7 @@ namespace Reliance.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
             // Auth and Identity
-            services.AddDbContext<AuthDbContext>(o => o.UseSqlServer(Configuration["connectionStrings:DefaultConnection"]));
+            services.AddDbContext<AuthDbContext>(o => o.UseSqlServer(Configuration["connectionStrings:AuthDb"]));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<AuthDbContext>();
@@ -45,7 +46,8 @@ namespace Reliance.Web
             services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration["connectionStrings:DefaultConnection"]));
 
             SnowStorm.Infrastructure.Configurations.Setup.All(ref services, typeof(Startup).GetTypeInfo().Assembly, new MappingProfile(), ConfigurationSetup.SwaggerInfo());
-                //services.AddScoped<ICompanyBrandRepository, CompanyBrandRepository>();
+            
+            services.AddScoped<IMasterRepository, MasterRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,12 +73,7 @@ namespace Reliance.Web
             app.UseAuthentication();
 
             //seting up swagger in the UI
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reliance - What is your App relying on?");
-                c.RoutePrefix = "swagger";
-            });
+            SnowStorm.Infrastructure.Configurations.SwaggerConfiguration.Configure(ref app, "Reliance - What is your App relying on?");
 
             app.UseMvc();
         }

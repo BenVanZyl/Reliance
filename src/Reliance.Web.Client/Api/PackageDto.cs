@@ -8,5 +8,7 @@
         public string TargetFrameWork { get; set; }
 
         public string Description => $"{Name} - {VersionMaster}.{VersionMinor}.{VersionPatch} - {TargetFrameWork}";
+
+        public string Version => $"{VersionMaster}.{VersionMinor}.{VersionPatch}";
     }
 }

@@ -13,34 +13,48 @@ namespace Reliance.Web.Domain
         protected Repository() { }
         //public int Id { get; private set; }  // PK is Mapped to DomainEnitiy.Id
         public string Name { get; private set; }
+        public int OwnerId { get; private set; }
+
+        public RepositoryOwner Owner { get; private set; }
 
         #region Methods
 
-        public static async Task<Repository> Create(IQueryExecutor executor, string name)
+        public static async Task<Repository> Create(IQueryExecutor executor, string name, int ownerId)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new Exception("Repository.Create: Missing Name!");
 
+            //confirm ownerId
+            var owner = await executor.ExecuteAsync(new GetRepositoryOwnerQuery(ownerId));
+            if (owner == null)
+                throw new Exception("Repository.Create: Missing Owner!");
+
             //check for existing repository
-            var newRepository = await executor.ExecuteAsync(new GetRepositoryQuery(name));
+            var newRepository = await executor.ExecuteAsync(new GetRepositoryQuery(name, ownerId));
 
             if (newRepository == null)
             {
-                newRepository = new Repository(name);
+                newRepository = new Repository(name, owner);
                 await executor.Add(newRepository);
             }
 
             return newRepository;
         }
 
-        public Repository(string name)
+        public Repository(string name, RepositoryOwner owner)
+        {
+            Name = name;
+            Owner = owner;
+        }
+
+        public void SetName(string name)
         {
             Name = name;
         }
 
-        public void Update(string name)
+        public void SetOwnerId(int ownerId)
         {
-            Name = name;
+            OwnerId = ownerId;
         }
 
         #endregion
@@ -53,7 +67,10 @@ namespace Reliance.Web.Domain
                 builder.HasKey(u => u.Id);  // PK. 
                 builder.Property(p => p.Id).HasColumnName("Id");//.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-                builder.Property(p => p.Name).HasMaxLength(1024);
+                builder.Property(p => p.OwnerId).IsRequired();
+                builder.Property(p => p.Name).HasMaxLength(1024).IsRequired();
+
+                builder.HasOne<RepositoryOwner>().WithOne().HasForeignKey<Repository>(e => e.OwnerId);
             }
         }
     }
