@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class RepositoryOwnerApiKey : DomainEntityWithIdAudit
+    public class RepositoryOwnerApiKey : DomainEntityWithIdInt64Audit64
     {
 
-        public int OwnerId { get; private set; }
+        public long OwnerId { get; private set; }
 
         public string ApiKey { get; private set; }
 
@@ -25,7 +25,7 @@ namespace Reliance.Web.Domain
         
         #region Methods
 
-        public static async Task<RepositoryOwnerApiKey> Create(IQueryExecutor executor, int ownerId)
+        public static async Task<RepositoryOwnerApiKey> Create(IQueryExecutor executor, long ownerId)
         {
             //check for existing repository owner
             var owner = await executor.ExecuteAsync(new GetRepositoryOwnerQuery(ownerId));
@@ -38,7 +38,7 @@ namespace Reliance.Web.Domain
             return key;
         }
 
-        private RepositoryOwnerApiKey(int ownerId)
+        private RepositoryOwnerApiKey(long ownerId)
         {
             OwnerId = ownerId;
             SetApiKey();
@@ -64,7 +64,7 @@ namespace Reliance.Web.Domain
         {
             public void Configure(EntityTypeBuilder<RepositoryOwnerApiKey> builder)
             {
-                builder.ToTable("RepositoryOwnerApiKey", "dbo");
+                builder.ToTable("RepositoryOwnerApiKey", "Reliance");
                 builder.HasKey(u => u.Id);  // PK. 
                 builder.Property(p => p.Id).HasColumnName("Id");//.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 

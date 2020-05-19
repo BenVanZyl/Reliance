@@ -2,6 +2,6 @@
 {
     public class SolutionDto:BaseDto
     {
-        public int RepositoryId { get; set; }
+        public long RepositoryId { get; set; }
     }
 }

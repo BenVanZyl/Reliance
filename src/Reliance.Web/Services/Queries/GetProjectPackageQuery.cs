@@ -6,10 +6,10 @@ namespace Reliance.Web.Services.Queries
 {
     public class GetProjectPackageQuery : IMappableSingleItemQuery<ProjectPackage>
     {
-        private readonly int _projectId;
-        private readonly int _packageId;
+        private readonly long _projectId;
+        private readonly long _packageId;
 
-        public GetProjectPackageQuery(int projectId, int packageId)
+        public GetProjectPackageQuery(long projectId, long packageId)
         {
             _projectId = projectId;
             _packageId = packageId;

@@ -1,10 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
 using System.IO;
-using System.Reflection;
-using DbUp;
-using Microsoft.Extensions.Configuration;
-using System.Linq;
-using System.Runtime.Loader;
 
 
 namespace Reliance.DbMigrations

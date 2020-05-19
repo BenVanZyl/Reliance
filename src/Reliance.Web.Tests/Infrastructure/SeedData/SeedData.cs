@@ -9,7 +9,10 @@ namespace Reliance.Test.Infrastructure.SeedData
     {
         public static void Build(AppDbContext dbContext)
         {
-            dbContext.Set<Repository>().Add(new Repository("Repository1", 1));
+            dbContext.Set<RepositoryOwner>().Add(new RepositoryOwner("owner@wherever.com", "Owner1", false, "test owner"));
+            var o1 = dbContext.Set<RepositoryOwner>().FirstOrDefault(w => w.Name == "Owner1");
+            
+            dbContext.Set<Repository>().Add(new Repository("Repository1", o1));
             var r1 = dbContext.Set<Repository>().FirstOrDefault(w => w.Name == "Repository1" && w.OwnerId == 1);
 
             dbContext.Set<Solution>().Add(new Solution("Solution1", r1));

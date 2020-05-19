@@ -10,17 +10,22 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.Api
 {
+    [Route("api")]
     public class RelianceController : Controller
     {
         private readonly IQueryExecutor _executor;
         private readonly IMediator _mediator;
         private readonly MasterRepository _master;
 
+        
+
         public RelianceController(IQueryExecutor executor, IMediator mediator, IMasterRepository master)
         {
             _executor = executor;
             _mediator = mediator;
             _master = (MasterRepository) master;
+
+            
         }
 
         [HttpGet]
@@ -35,20 +40,20 @@ namespace Reliance.Web.Api
         }
 
         [HttpGet]
-        [Route("api/reliance/repositories/{repositoryId:int}/solutions")]
+        [Route("api/reliance/repositories/{repositoryId:long}/solutions")]
         [ProducesDefaultResponseType(typeof(List<SolutionDto>))]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
-        public async Task<IActionResult> GetSolutions(int repositoryId)
+        public async Task<IActionResult> GetSolutions([FromQuery] long repositoryId)
         {
             var results = await _executor.WithMapping<SolutionDto>().ExecuteAsync(new GetSolutionsQuery(repositoryId), o => o.Name);
             return Ok(results);
         }
         
         [HttpGet]
-        [Route("api/reliance/repositories/solutions/{solutionId:int}/projects")]
+        [Route("api/reliance/repositories/solutions/{solutionId:long}/projects")]
         [ProducesDefaultResponseType(typeof(List<ProjectDto>))]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
-        public async Task<IActionResult> GetSolutionProjects(int solutionId)
+        public async Task<IActionResult> GetSolutionProjects([FromQuery] long solutionId)
         {
             var results = await _executor.WithMapping<ProjectDto>().ExecuteAsync(new GetProjectsQuery(solutionId), o => o.Name);
             return Ok(results);

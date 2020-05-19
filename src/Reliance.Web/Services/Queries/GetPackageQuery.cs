@@ -8,9 +8,9 @@ namespace Reliance.Web.Services.Queries
     public class GetPackageQuery : IMappableSingleItemQuery<Package>
     {
         private readonly Client.Api.PackageDto _data;
-        private readonly int? _packageId;
+        private readonly long? _packageId;
 
-        public GetPackageQuery(int packageId)
+        public GetPackageQuery(long packageId)
         {
             _packageId = packageId;
             _data = null;

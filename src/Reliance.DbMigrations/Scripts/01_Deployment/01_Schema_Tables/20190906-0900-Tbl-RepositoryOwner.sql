@@ -1,16 +1,16 @@
 ﻿If Not Exists(Select 1 From sys.tables Where name = 'RepositoryOwner')
 Begin
-	Create Table dbo.RepositoryOwner 
+	Create Table Reliance.RepositoryOwner 
 	(
-		Id					int	Identity(1,1) NOT NULL,
+		Id					bigint	Identity(1,1) NOT NULL,
+		CreateUserId		bigint NOT NULL,
+		CreateDateTime		dateTime NOT NULL,
+		ModifyUserId		bigint NOT NULL,
+		ModifyDateTime		dateTime NOT NULL,
 		UserId				varchar(450) NOT NULL,
 		Name				varchar(128) NOT NULL,
 		IsOrganisation		bit NOT NULL Default 0,
 		Description			varchar(2048) NULL,
-		CreateUserId		int NOT NULL,
-		CreateDateTime		dateTime NOT NULL,
-		ModifyUserId		int NOT NULL,
-		ModifyDateTime		dateTime NOT NULL,
 		CONSTRAINT [PK_RepositoryOwner] PRIMARY KEY CLUSTERED 
 		(
 			[Id] ASC

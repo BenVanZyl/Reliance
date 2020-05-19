@@ -9,18 +9,18 @@ namespace Reliance.Web.Services.Queries
         //TIP: Include(fk => fk.FkClass)
         //TIP: Decompile() for use with Computed fields
 
-        private readonly int? _id;
+        private readonly long? _id;
         private readonly string _name;
-        private readonly int? _ownerId;
+        private readonly long? _ownerId;
 
-        public GetRepositoryQuery(int id)
+        public GetRepositoryQuery(long id)
         {
             _id = id;
             _name = "";
             _ownerId = null;
         }
 
-        public GetRepositoryQuery(string name, int ownerId)
+        public GetRepositoryQuery(string name, long ownerId)
         {
             _id = null;
             _name = name;

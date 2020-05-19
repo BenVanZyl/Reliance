@@ -2,9 +2,9 @@
 {
     public class ProjectPackageDto
     {
-        public int Id { get; set; }
-        public int ProjectId { get; set; }
-        public int PackageId { get; set; }
+        public long Id { get; set; }
+        public long ProjectId { get; set; }
+        public long PackageId { get; set; }
         
     }
 }

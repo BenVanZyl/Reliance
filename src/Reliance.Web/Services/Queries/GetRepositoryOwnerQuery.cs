@@ -9,10 +9,10 @@ namespace Reliance.Web.Services.Queries
 {
     public class GetRepositoryOwnerQuery : IMappableSingleItemQuery<RepositoryOwner>
     {
-        private readonly int? _id;
+        private readonly long? _id;
         private readonly string _userId;
 
-        public GetRepositoryOwnerQuery(int id)
+        public GetRepositoryOwnerQuery(long id)
         {
             _id = id;
         }

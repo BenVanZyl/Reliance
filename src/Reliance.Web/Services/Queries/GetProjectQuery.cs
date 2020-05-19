@@ -7,18 +7,18 @@ namespace Reliance.Web.Services.Queries
     public class GetProjectQuery : IMappableSingleItemQuery<Project>
     {
 
-        private readonly int? _id;
+        private readonly long? _id;
         private string _name;
-        private int? _solutionId;
+        private long? _solutionId;
 
-        public GetProjectQuery(int id)
+        public GetProjectQuery(long id)
         {
             _id = id;
             _name = "";
             _solutionId = null;
         }
 
-        public GetProjectQuery(string name, int solutionId)
+        public GetProjectQuery(string name, long solutionId)
         {
             _id = null;
             _name = name;

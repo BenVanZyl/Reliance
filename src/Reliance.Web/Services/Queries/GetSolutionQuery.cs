@@ -6,18 +6,18 @@ namespace Reliance.Web.Services.Queries
 {
     public class GetSolutionQuery : IMappableSingleItemQuery<Solution>
     {
-        private readonly int? _id;
+        private readonly long? _id;
         private string _name;
-        private int? _repositoryId;
+        private long? _repositoryId;
 
-        public GetSolutionQuery(int id)
+        public GetSolutionQuery(long id)
         {
             _id = id;
             _name = "";
             _repositoryId = null;
         }
 
-        public GetSolutionQuery(string name, int repositoryId)
+        public GetSolutionQuery(string name, long repositoryId)
         {
             _id = null;
             _name = name;

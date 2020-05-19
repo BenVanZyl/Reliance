@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Reliance.Web.Domain
 {
     //TODO: New feature to be implemented.
-    public class RepositoryOwner: DomainEntityWithIdAudit
+    public class RepositoryOwner: DomainEntityWithIdInt64Audit64
     {
         protected RepositoryOwner() { }
 
@@ -58,7 +58,7 @@ namespace Reliance.Web.Domain
         {
             public void Configure(EntityTypeBuilder<RepositoryOwner> builder)
             {
-                builder.ToTable("RepositoryOwner", "dbo");
+                builder.ToTable("RepositoryOwner", "Reliance");
                 builder.HasKey(u => u.Id);  // PK. 
                 builder.Property(p => p.Id).HasColumnName("Id");//.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 

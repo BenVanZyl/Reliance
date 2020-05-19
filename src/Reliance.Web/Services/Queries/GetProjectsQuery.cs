@@ -6,9 +6,9 @@ namespace Reliance.Web.Services.Queries
 {
     public class GetProjectsQuery : IMappableQuery<Project>
     {
-        private readonly int _solutionId;
+        private readonly long _solutionId;
 
-        public GetProjectsQuery(int solutionId)
+        public GetProjectsQuery(long solutionId)
         {
             _solutionId = solutionId;
         }

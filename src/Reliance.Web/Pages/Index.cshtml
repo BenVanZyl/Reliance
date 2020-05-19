@@ -6,22 +6,38 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <p>Ever wondered which of your apps is using what dependency and what version of that dependecy?</p>
-    </div>
-    <div class="col-md-4">
-        <p>Wondered which of your apps will break because you made a change to NuGet package?</p>
-    </div>
-    <div class="col-md-4">
-        <p>That is the purpose of this system.  To reduce the uncertainty and problems caused by these issues.  You can now know which app is affected by what dependency.</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12 text-center">
-        Better to know than to wonder.
-    </div>
+<div class="alert-info">
+    SnowStorm says... @Model.SnowStormGreeting
 </div>
 
+@{ if (Model.Packages != null)
+    {
+        <ejs-grid id="PackagesGrid"
+                  allowPaging="true"
+                  allowSorting="true"
+                  allowFiltering="false"
+                  allowGrouping="true"
+                  toolbar="@(new List<string>() { "add", "edit", "delete", "update", "cancel" })"
+                  width="auto"
+                  rowTemplate=""
+                  dataSource="@Model.Packages">
+            <e-grid-editSettings allowAdding="true"
+                                 allowDeleting="true"
+                                 allowEditing="true"
+                                 newRowPosition="Top"
+                                 showDeleteConfirmDialog="true">
+            </e-grid-editSettings>
+            <e-grid-pagesettings pageSize="25"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column field="Id" headerText="ID" isIdentity="true" isPrimaryKey="true" visible="false"></e-grid-column>
+                <e-grid-column field="Name" headerText="Name" width="50%"></e-grid-column>
+                <e-grid-column field="FullVersion" headerText="Version" width="25%"></e-grid-column>
+                <e-grid-column field="TargetFramework" headerText="TargetFramework" width="25%"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+
+    }
+}

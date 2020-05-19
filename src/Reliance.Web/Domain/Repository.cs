@@ -4,22 +4,25 @@ using Reliance.Web.Services.Queries;
 using SnowStorm.Infrastructure.Domain;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class Repository : DomainEntityWithIdAudit
+    public class Repository : DomainEntityWithIdInt64Audit64
     {
         protected Repository() { }
-        //public int Id { get; private set; }  // PK is Mapped to DomainEnitiy.Id
+        
+        // Id PK is Mapped to DomainEnitiy.Id
         public string Name { get; private set; }
-        public int OwnerId { get; private set; }
+        public long OwnerId { get; private set; }
 
+        [ForeignKey("OwnerId")]
         public RepositoryOwner Owner { get; private set; }
 
         #region Methods
 
-        public static async Task<Repository> Create(IQueryExecutor executor, string name, int ownerId)
+        public static async Task<Repository> Create(IQueryExecutor executor, string name, long ownerId)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new Exception("Repository.Create: Missing Name!");
@@ -52,7 +55,7 @@ namespace Reliance.Web.Domain
             Name = name;
         }
 
-        public void SetOwnerId(int ownerId)
+        public void SetOwnerId(long ownerId)
         {
             OwnerId = ownerId;
         }
@@ -63,14 +66,13 @@ namespace Reliance.Web.Domain
         {
             public void Configure(EntityTypeBuilder<Repository> builder)
             {
-                builder.ToTable("Repository", "dbo");
+                builder.ToTable("Repository", "Reliance");
                 builder.HasKey(u => u.Id);  // PK. 
                 builder.Property(p => p.Id).HasColumnName("Id");//.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
                 builder.Property(p => p.OwnerId).IsRequired();
                 builder.Property(p => p.Name).HasMaxLength(1024).IsRequired();
 
-                builder.HasOne<RepositoryOwner>().WithOne().HasForeignKey<Repository>(e => e.OwnerId);
             }
         }
     }

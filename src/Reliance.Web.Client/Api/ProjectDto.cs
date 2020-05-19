@@ -2,6 +2,6 @@
 {
     public class ProjectDto: BaseDto
     {
-        public int SolutionId { get; set; }
+        public long SolutionId { get; set; }
     }
 }

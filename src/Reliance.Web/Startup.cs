@@ -1,17 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
+using Reliance.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Reliance.Web.Data;
+using Microsoft.Extensions.Hosting;
 using Reliance.Web.Infrastructure;
-using Reliance.Web.Services.Repositories;
-using SnowStorm.Infrastructure.Domain;
 using System.Reflection;
+using SnowStorm.Infrastructure.Domain;
 
 namespace Reliance.Web
 {
@@ -27,32 +30,38 @@ namespace Reliance.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services.AddRazorPages();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
-            // Auth and Identity
-            services.AddDbContext<AuthDbContext>(o => o.UseSqlServer(Configuration["connectionStrings:AuthDb"]));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
+            services.AddMvcCore()
+                .AddApiExplorer();
+
+            //AppSettings
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings")); // TODO: Move Azure Vault
+
+            // Auth
+            services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthDb"))); // TODO: Move Azure Vault
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<AuthDbContext>();
 
-            // App Db Context
-            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration["connectionStrings:DefaultConnection"]));
 
-            SnowStorm.Infrastructure.Configurations.Setup.All(ref services, typeof(Startup).GetTypeInfo().Assembly, new MappingProfile(), ConfigurationSetup.SwaggerInfo());
+            //SnowStorm Config - begin
             
-            services.AddScoped<IMasterRepository, MasterRepository>();
+            // Setup query executor & mediatr using SnowStorm package
+            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration["connectionStrings:DataDb"])); // TODO: Move Azure Vault
+
+            //Configure SnowStorm
+            SnowStorm.Infrastructure.Configurations.Setup.All(ref services, typeof(Startup).GetTypeInfo().Assembly, new MappingProfile());
+
+            //SnowStorm Config - end
+
+            SwaggerSetup.Swagger(ref services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            MySyncFusion.SetLicence();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -64,18 +73,23 @@ namespace Reliance.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-                       
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+
+            app.UseRouting();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            //seting up swagger in the UI
-            SnowStorm.Infrastructure.Configurations.SwaggerConfiguration.Configure(ref app, "Reliance - What is your App relying on?");
+            SwaggerSetup.Swagger(ref app);
 
-            app.UseMvc();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
+            
         }
     }
 }

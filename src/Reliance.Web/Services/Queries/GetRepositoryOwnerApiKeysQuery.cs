@@ -9,9 +9,9 @@ namespace Reliance.Web.Services.Queries
 {
     public class GetRepositoryOwnerApiKeysQuery : IMappableSingleItemQuery<RepositoryOwnerApiKey>
     {
-        private readonly int _ownerId;
+        private readonly long _ownerId;
 
-        public GetRepositoryOwnerApiKeysQuery(int ownerId)
+        public GetRepositoryOwnerApiKeysQuery(long ownerId)
         {
             _ownerId = ownerId;
         }

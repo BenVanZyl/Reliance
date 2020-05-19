@@ -4,22 +4,26 @@ using Reliance.Web.Services.Queries;
 using SnowStorm.Infrastructure.Domain;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class Project: DomainEntityWithIdAudit
+    public class Project: DomainEntityWithIdInt64Audit64
     {
         protected Project() { }
-        
-        //public int Id { get; private set; }  // PK is Mapped to DomainEnitiy.Id
+
+        // Id PK is Mapped to DomainEnitiy.Id
+
         public string Name { get; private set; }
-        public int SolutionId { get; private set; }  // TODO: Foreign Key Column requires config.
+        public long SolutionId { get; private set; }  // TODO: Foreign Key Column requires config.
+        
+        [ForeignKey("SolutionId")]
         public Solution Solution { get; private set; }
 
         #region Methods
 
-        public static async Task<Project> Create(IQueryExecutor executor, string name, int solutionId)
+        public static async Task<Project> Create(IQueryExecutor executor, string name, long solutionId)
         {
             var solution = await executor.ExecuteAsync(new GetSolutionQuery(solutionId));
             if (solution == null)
@@ -58,13 +62,12 @@ namespace Reliance.Web.Domain
         {
             public void Configure(EntityTypeBuilder<Project> builder)
             {
-                builder.ToTable("Project", "dbo");
+                builder.ToTable("Project", "Reliance");
                 builder.HasKey(u => u.Id);  // PK. 
                 builder.Property(p => p.Id).HasColumnName("Id"); //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
                 builder.Property(p => p.Name).HasMaxLength(255);
 
-                builder.HasOne<Solution>().WithOne().HasForeignKey<Project>(e => e.SolutionId);
             }
         }
     }

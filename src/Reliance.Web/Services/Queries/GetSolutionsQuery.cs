@@ -6,9 +6,9 @@ namespace Reliance.Web.Services.Queries
 {
     public class GetSolutionsQuery : IMappableQuery<Solution>
     {
-        private int? _repositoryId = null;
+        private long? _repositoryId = null;
 
-        public GetSolutionsQuery(int repositoryId)
+        public GetSolutionsQuery(long repositoryId)
         {
             _repositoryId = repositoryId;
         }

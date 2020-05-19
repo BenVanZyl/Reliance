@@ -4,23 +4,27 @@ using Reliance.Web.Services.Queries;
 using SnowStorm.Infrastructure.Domain;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class ProjectPackage : DomainEntityWithIdAudit
+    public class ProjectPackage : DomainEntityWithIdInt64Audit64
     {
         protected ProjectPackage() { }
-        //public int Id { get; private set; }  // PK is Mapped to DomainEnitiy.Id
-        public int ProjectId { get; private set; }  // TODO: Foreign Key Column requires config.
-        public int PackageId { get; private set; }  // TODO: Foreign Key Column requires config.
+        
+        // Id PK is Mapped to DomainEnitiy.Id
+        public long ProjectId { get; private set; }  // TODO: Foreign Key Column requires config.
+        public long PackageId { get; private set; }  // TODO: Foreign Key Column requires config.
 
+        [ForeignKey("ProjectId")]
         public Project Project { get; private set; }
+        [ForeignKey("PackageId")]
         public Package Package { get; private set; }
 
         #region Methods
 
-        public static async Task<ProjectPackage> Create(IQueryExecutor executor, int projectId, int packageId)
+        public static async Task<ProjectPackage> Create(IQueryExecutor executor, long projectId, long packageId)
         {
             var project = await executor.ExecuteAsync(new GetProjectQuery(projectId));
             if (project == null)
@@ -57,12 +61,10 @@ namespace Reliance.Web.Domain
         {
             public void Configure(EntityTypeBuilder<ProjectPackage> builder)
             {
-                builder.ToTable("ProjectPackage", "dbo");
+                builder.ToTable("ProjectPackage", "Reliance");
                 builder.HasKey(u => u.Id);  // PK. 
                 builder.Property(p => p.Id).HasColumnName("Id"); //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-                builder.HasOne<Project>().WithOne().HasForeignKey<ProjectPackage>(e => e.ProjectId);
-                builder.HasOne<Package>().WithOne().HasForeignKey<ProjectPackage>(e => e.PackageId);
             }
         }
     }

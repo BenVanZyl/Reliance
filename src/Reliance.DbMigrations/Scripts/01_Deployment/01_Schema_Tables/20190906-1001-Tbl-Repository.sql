@@ -1,13 +1,13 @@
 ﻿If Not Exists(Select 1 From sys.tables Where name = 'Repository')
 Begin
-	Create Table dbo.Repository 
+	Create Table Reliance.Repository 
 	(
-		Id					int	Identity(1,1) NOT NULL,
-		Name				varchar(1024) NOT NULL,
-		CreateUserId		int NOT NULL,
+		Id					bigint	Identity(1,1) NOT NULL,
+		CreateUserId		bigint NOT NULL,
 		CreateDateTime		dateTime NOT NULL,
-		ModifyUserId		int NOT NULL,
+		ModifyUserId		bigint NOT NULL,
 		ModifyDateTime		dateTime NOT NULL,
+		Name				varchar(1024) NOT NULL,
 		CONSTRAINT [PK_Repository] PRIMARY KEY CLUSTERED 
 		(
 			[Id] ASC
@@ -19,15 +19,15 @@ GO
 If Not Exists(Select * From sys.columns c inner join sys.tables t on c.object_id = t.object_id 
 				Where t.name = 'Repository' and c.name = 'OwnerId')
 Begin
-	ALTER TABLE [dbo].[Repository]  Add OwnerId int NULL Default NULL
+	ALTER TABLE [Reliance].[Repository]  Add OwnerId bigint NULL Default NULL
 End 
 Go
 
 If Not Exists(Select * From sys.foreign_keys  Where name = 'FK_Repository_Owner')
 Begin
-	ALTER TABLE [dbo].[Repository]  
+	ALTER TABLE [Reliance].[Repository]  
 		WITH CHECK 
 		ADD  CONSTRAINT [FK_Repository_Owner] 
-		FOREIGN KEY([OwnerId]) REFERENCES [dbo].[RepositoryOwner] ([Id])
+		FOREIGN KEY([OwnerId]) REFERENCES [Reliance].[RepositoryOwner] ([Id])
 End 
 Go

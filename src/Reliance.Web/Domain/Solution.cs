@@ -4,22 +4,25 @@ using Reliance.Web.Services.Queries;
 using SnowStorm.Infrastructure.Domain;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class Solution : DomainEntityWithIdAudit
+    public class Solution : DomainEntityWithIdInt64Audit64
     {
         protected Solution() { }
-        //public int Id { get; private set; }  // PK is Mapped to DomainEnitiy.Id
+        
+        // Id PK is Mapped to DomainEnitiy.Id
         public string Name { get; private set; }
-        public int RepositoryId { get; private set; }  // TODO: Foreign Key Column requires config.
+        public long RepositoryId { get; private set; }  // TODO: Foreign Key Column requires config.
 
+        [ForeignKey("RepositoryId")]
         public Repository Repository { get; private set; }
 
         #region Methods
 
-        public static async Task<Solution> Create(IQueryExecutor executor, string name, int repositoryId)
+        public static async Task<Solution> Create(IQueryExecutor executor, string name, long repositoryId)
         {
             var repository = await executor.ExecuteAsync(new GetRepositoryQuery(repositoryId));
             if (repository == null)
@@ -58,7 +61,7 @@ namespace Reliance.Web.Domain
         {
             public void Configure(EntityTypeBuilder<Solution> builder)
             {
-                builder.ToTable("Solution", "dbo");
+                builder.ToTable("Solution", "Reliance");
                 builder.HasKey(u => u.Id);  // PK. 
                 builder.Property(p => p.Id).HasColumnName("Id");//.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 

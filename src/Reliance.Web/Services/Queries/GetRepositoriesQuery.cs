@@ -6,15 +6,15 @@ namespace Reliance.Web.Services.Queries
 {
     public class GetRepositoriesQuery : IMappableQuery<Repository>
     {
-        private int? _packageId;
-        private int _ownerId;
+        private long? _packageId;
+        private long _ownerId;
 
-        public GetRepositoriesQuery(int ownerId)
+        public GetRepositoriesQuery(long ownerId)
         {
             _ownerId = ownerId;
             _packageId = null;
         }
-        public GetRepositoriesQuery(int ownerId, int packageId) 
+        public GetRepositoriesQuery(long ownerId, long packageId) 
         {
             _ownerId = ownerId;
             _packageId = packageId;
