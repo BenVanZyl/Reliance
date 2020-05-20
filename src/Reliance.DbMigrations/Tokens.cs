@@ -12,7 +12,7 @@ namespace Reliance.DbMigrations
     {
         public static string Predeployment => "00_Predeployment";
         public static string Deployment => "01_Deployment";
-        public static string TestOnly => "02_Deploy_Only";
-        public static string DeployOnly => "03_Test_Only";
+        public static string DeployOnly => "02_Deploy_Only";
+        public static string TestOnly => "03_Test_Only";
     }
 }
