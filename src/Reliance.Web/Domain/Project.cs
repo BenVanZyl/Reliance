@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class Project: DomainEntityWithIdInt64Audit64
+    public class Project: DomainEntityWithIdWithAudit
     {
         protected Project() { }
 

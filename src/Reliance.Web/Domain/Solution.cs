@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class Solution : DomainEntityWithIdInt64Audit64
+    public class Solution : DomainEntityWithIdWithAudit
     {
         protected Solution() { }
-        
+
         // Id PK is Mapped to DomainEnitiy.Id
         public string Name { get; private set; }
         public long RepositoryId { get; private set; }  // TODO: Foreign Key Column requires config.
@@ -62,7 +62,7 @@ namespace Reliance.Web.Domain
             public void Configure(EntityTypeBuilder<Solution> builder)
             {
                 builder.ToTable("Solution", "Reliance");
-                builder.HasKey(u => u.Id);  // PK. 
+                builder.HasKey(u => u.Id);  // PK.
                 builder.Property(p => p.Id).HasColumnName("Id");//.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
                 builder.Property(p => p.Name).HasMaxLength(1024);

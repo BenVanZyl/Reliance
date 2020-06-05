@@ -11,7 +11,7 @@ namespace Reliance.Test.Infrastructure.SeedData
         {
             dbContext.Set<RepositoryOwner>().Add(new RepositoryOwner("owner@wherever.com", "Owner1", false, "test owner"));
             var o1 = dbContext.Set<RepositoryOwner>().FirstOrDefault(w => w.Name == "Owner1");
-            
+
             dbContext.Set<Repository>().Add(new Repository("Repository1", o1));
             var r1 = dbContext.Set<Repository>().FirstOrDefault(w => w.Name == "Repository1" && w.OwnerId == 1);
 
@@ -23,7 +23,7 @@ namespace Reliance.Test.Infrastructure.SeedData
 
             dbContext.Set<Package>().Add(new Package(GetPackageDto("Package1")));
             var pkg1 = dbContext.Set<Package>().FirstOrDefault(w => w.Name == "Package1");
-            
+
             dbContext.Set<ProjectPackage>().Add(new ProjectPackage(p1, pkg1));
             var prjPkg1 = dbContext.Set<ProjectPackage>().FirstOrDefault(w => w.Project == p1 && w.Package == pkg1);
 

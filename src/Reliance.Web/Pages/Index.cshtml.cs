@@ -24,7 +24,7 @@ namespace Reliance.Web.Pages
         public List<PackageDto> Packages { get; set; }
 
         #endregion
-        
+
         public IndexModel(ILogger<IndexModel> logger, IQueryExecutor executor, IMediator mediator)
         {
             _logger = logger;
@@ -45,7 +45,7 @@ namespace Reliance.Web.Pages
                 return;  //nothing to do, user is not authenticated
 
 
-            Packages = await _executor.WithMapping<PackageDto>().ExecuteAsync(new GetPackagesQuery(), o => o.Name);
+            Packages = await _executor.WithMapping<PackageDto>().Execute(new GetPackagesQuery(), o => o.Name);
 
         }
     }

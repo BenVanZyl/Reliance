@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Reliance.Web.Domain
 {
     //TODO: New feature to be implemented.
-    public class RepositoryOwner: DomainEntityWithIdInt64Audit64
+    public class RepositoryOwner: DomainEntityWithIdWithAudit
     {
         protected RepositoryOwner() { }
 

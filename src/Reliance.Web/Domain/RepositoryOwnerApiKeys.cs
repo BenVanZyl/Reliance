@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class RepositoryOwnerApiKey : DomainEntityWithIdInt64Audit64
+    public class RepositoryOwnerApiKey : DomainEntityWithIdWithAudit
     {
 
         public long OwnerId { get; private set; }

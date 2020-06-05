@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Reliance.Web.Domain
 {
-    public class Package : DomainEntityWithIdInt64Audit64
+    public class Package : DomainEntityWithIdWithAudit
     {
         protected Package() { }
         //public int Id { get; private set; }  // PK is Mapped to DomainEnitiy.Id
@@ -60,7 +60,7 @@ namespace Reliance.Web.Domain
             public void Configure(EntityTypeBuilder<Package> builder)
             {
                 builder.ToTable("Package", "Reliance");
-                builder.HasKey(u => u.Id);  // PK. 
+                builder.HasKey(u => u.Id);  // PK.
                 builder.Property(p => p.Id).HasColumnName("Id"); //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
                 builder.Property(p => p.Name).HasMaxLength(1024);

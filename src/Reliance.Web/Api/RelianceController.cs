@@ -34,7 +34,7 @@ namespace Reliance.Web.Api
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> GetRepositories()
         {
-            //var results = await _executor.WithMapping<RepositoryDto>().ExecuteAsync(new GetRepositoriesQuery(), o => o.Name);
+            //var results = await _executor.WithMapping<RepositoryDto>().Execute(new GetRepositoriesQuery(), o => o.Name);
             var results = await _master.GetRepositories();
             return Ok(results);
         }
@@ -45,7 +45,7 @@ namespace Reliance.Web.Api
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> GetSolutions([FromQuery] long repositoryId)
         {
-            var results = await _executor.WithMapping<SolutionDto>().ExecuteAsync(new GetSolutionsQuery(repositoryId), o => o.Name);
+            var results = await _executor.WithMapping<SolutionDto>().Execute(new GetSolutionsQuery(repositoryId), o => o.Name);
             return Ok(results);
         }
         
@@ -55,7 +55,7 @@ namespace Reliance.Web.Api
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> GetSolutionProjects([FromQuery] long solutionId)
         {
-            var results = await _executor.WithMapping<ProjectDto>().ExecuteAsync(new GetProjectsQuery(solutionId), o => o.Name);
+            var results = await _executor.WithMapping<ProjectDto>().Execute(new GetProjectsQuery(solutionId), o => o.Name);
             return Ok(results);
         }
 
@@ -65,7 +65,7 @@ namespace Reliance.Web.Api
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> GetPackages()
         {
-            var results = await _executor.WithMapping<PackageDto>().ExecuteAsync(new GetPackagesQuery(), o => o.Name);
+            var results = await _executor.WithMapping<PackageDto>().Execute(new GetPackagesQuery(), o => o.Name);
             return Ok(results);
         }
 
@@ -77,7 +77,7 @@ namespace Reliance.Web.Api
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> PostRepositories([FromBody] PostRepositoryDetailsDto data)
         {
-            var results = await _mediator.Send(new PostRepositryDetailsCommand(data)); //_executor.WithMapping<RepositoryDto>().ExecuteAsync(new GetRepositoriesQuery(), o => o.Name);
+            var results = await _mediator.Send(new PostRepositryDetailsCommand(data)); //_executor.WithMapping<RepositoryDto>().Execute(new GetRepositoriesQuery(), o => o.Name);
             return Ok(results);
         }
     }

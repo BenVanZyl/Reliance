@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.Domain
 {
-    public class ProjectPackage : DomainEntityWithIdInt64Audit64
+    public class ProjectPackage : DomainEntityWithIdWithAudit
     {
         protected ProjectPackage() { }
-        
+
         // Id PK is Mapped to DomainEnitiy.Id
         public long ProjectId { get; private set; }  // TODO: Foreign Key Column requires config.
         public long PackageId { get; private set; }  // TODO: Foreign Key Column requires config.
@@ -62,7 +62,7 @@ namespace Reliance.Web.Domain
             public void Configure(EntityTypeBuilder<ProjectPackage> builder)
             {
                 builder.ToTable("ProjectPackage", "Reliance");
-                builder.HasKey(u => u.Id);  // PK. 
+                builder.HasKey(u => u.Id);  // PK.
                 builder.Property(p => p.Id).HasColumnName("Id"); //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             }

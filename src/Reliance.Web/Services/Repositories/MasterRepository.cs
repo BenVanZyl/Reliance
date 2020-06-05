@@ -24,21 +24,21 @@ namespace Reliance.Web.Services.Repositories
         public async Task<List<PackageDto>> GetPackages()
         {
             var results = await _executor.WithMapping<PackageDto>()
-                .ExecuteAsync(new GetPackagesQuery(), o => o.Name);
+                .Execute(new GetPackagesQuery(), o => o.Name);
             return results;
         }
 
         public async Task<List<PackageDto>> GetPackages(string packageName)
         {
             var results = await _executor.WithMapping<PackageDto>()
-                .ExecuteAsync(new GetPackagesQuery(packageName), o => o.Name);
+                .Execute(new GetPackagesQuery(packageName), o => o.Name);
             return results;
         }
 
         public async Task<List<string>> GetPackageNames()
         {
             var source = await _executor.WithMapping<PackageDto>()
-                .ExecuteAsync(new GetPackagesQuery(), o => o.Name);
+                .Execute(new GetPackagesQuery(), o => o.Name);
 
             var results = source.Select(s => s.Name).Distinct().ToList();
 
@@ -57,7 +57,7 @@ namespace Reliance.Web.Services.Repositories
         public async Task<PackageDto> GetPackage(long packageId)
         {
             var results = await _executor.WithMapping<PackageDto>()
-                .ExecuteAsync(new GetPackageQuery(packageId));
+                .Execute(new GetPackageQuery(packageId));
             return results;
         }
 
@@ -73,14 +73,14 @@ namespace Reliance.Web.Services.Repositories
         public async Task<RepositoryDto> GetRepository(long repositoryId)
         {
             var results = await _executor.WithMapping<RepositoryDto>()
-               .ExecuteAsync(new GetRepositoryQuery(repositoryId));
+               .Execute(new GetRepositoryQuery(repositoryId));
             return results;
         }
 
         public async Task<List<RepositoryDto>> GetRepositories()
         {
             var results = await _executor.WithMapping<RepositoryDto>()
-                .ExecuteAsync(new GetRepositoriesQuery(1), o => o.Name); //TODO: Implement getting OwnerId for all queries
+                .Execute(new GetRepositoriesQuery(1), o => o.Name); //TODO: Implement getting OwnerId for all queries
             return results;
         }
 
@@ -96,7 +96,7 @@ namespace Reliance.Web.Services.Repositories
         public async Task<List<RepositoryDto>> GetRepositories(long packageId)
         {
             var results = await _executor.WithMapping<RepositoryDto>()
-                .ExecuteAsync(new GetRepositoriesQuery(packageId), o => o.Name);
+                .Execute(new GetRepositoriesQuery(packageId), o => o.Name);
             return results;
         }
 
