@@ -1,0 +1,115 @@
+﻿@page
+@model Reliance.Web.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="jumbotron">
+    <h1>Profile</h1>
+    <p>This is where you manage your profile.  Your can assign members to your organization and get private API keys here.</p>
+    <p>Organisation : [ DropDown of organisations linked to logged in user ]</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <h2>The Basics</h2>
+
+        <form id="ProfileForm" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="Input.Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Input.Name"></label>
+                <input asp-for="Input.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.MasterEmail"></label>
+                <input asp-for="Input.MasterEmail" class="form-control" />
+                <span asp-validation-for="Input.MasterEmail" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </form>
+
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }
+
+    </div>
+    <div class="col-md-8">
+
+        <h2>Private Keys</h2>
+
+        <ejs-button id="element" content="Send" cssClass="site-button" title="Send a notification to the owner of the tag and what it is attached to."></ejs-button>
+
+        <ejs-grid id="GridPrivateKeys"
+                  allowPaging="true"
+                  allowSorting="true"
+                  allowFiltering="false"
+                  allowGrouping="false"
+                  toolbar="@(new List<string>() { "Add", "Cancel", "Update" })"
+                  created="onLoadGrid"
+                  dataBound="dataBoundGrid"
+                  actionFailure="actionFailureGrid">
+
+            <e-grid-editSettings allowAdding="true"
+                                 allowDeleting="false"
+                                 allowEditing="false"
+                                 newRowPosition="Top"
+                                 showDeleteConfirmDialog="true">
+            </e-grid-editSettings>
+
+            <e-grid-pagesettings pageSize="25"></e-grid-pagesettings>
+
+            <e-data-manager url="@Model.WebApiAdapterUrlKeys" crossdomain="true" adaptor="WebApiAdaptor"></e-data-manager>
+
+            <e-grid-columns>
+                <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true" visible="false"></e-grid-column>
+                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.Input.Id"></e-grid-column>
+                <e-grid-column field="PrivateKey" headerText="Private Key" visible="true"></e-grid-column>
+                <e-grid-column field="Description" headerText="Description" visible="true"></e-grid-column>
+                <e-grid-column field="ExpiryDate" headerText="Expiry Date" visible="true" allowEditing="true" headerTextAlign="Right" textAlign="Right"></e-grid-column>
+                <e-grid-column field="ModifyDateTime" headerText="Last Modified" visible="true" allowEditing="false" headerTextAlign="Right" textAlign="Right"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+
+        <h2>Members</h2>
+
+        <ejs-grid id="GridMembers"
+              allowPaging="true"
+              allowSorting="true"
+              allowFiltering="false"
+              allowGrouping="false"
+              toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })"
+              created="onLoadGrid"
+              dataBound="dataBoundGrid"
+              actionFailure="actionFailureGrid">
+
+            <e-grid-editSettings allowAdding="true"
+                                 allowDeleting="true"
+                                 allowEditing="true"
+                                 newRowPosition="Top"
+                                 showDeleteConfirmDialog="true">
+            </e-grid-editSettings>
+
+            <e-grid-pagesettings pageSize="25"></e-grid-pagesettings>
+
+            <e-data-manager url="@Model.WebApiAdapterUrlMembers" crossdomain="true" adaptor="WebApiAdaptor"></e-data-manager>
+
+            <e-grid-columns>
+                <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true" visible="false"></e-grid-column>
+                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.Input.Id"></e-grid-column>
+
+                <e-grid-column field="ModifyDateTime" headerText="Last Modified" visible="true" allowEditing="false" headerTextAlign="Right" textAlign="Right"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+
+    </div>
+</div>
+

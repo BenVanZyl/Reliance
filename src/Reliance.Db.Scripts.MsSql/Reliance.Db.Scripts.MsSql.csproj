@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="Scripts\01_Deployment\00_Schema\00000000-0000-Schema_Data.sql" />
+    <None Remove="Scripts\01_Deployment\01_Tables\00000000-0000-0-AuthTables.sql" />
+    <None Remove="Scripts\01_Deployment\01_Tables\20200520-0001-Organisation.sql" />
+    <None Remove="Scripts\01_Deployment\01_Tables\20200520-0002-OrganisationKey.sql" />
+    <None Remove="Scripts\01_Deployment\01_Tables\20200520-0003-OrganisationMember.sql" />
+    <None Remove="Scripts\01_Deployment\05_Data\20200520-0001-SampleTable-Data.sql" />
+    <None Remove="Scripts\01_Deployment\05_Data\20200520-0002-SampleTable-Data.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Scripts\01_Deployment\00_Schema\00000000-0000-Schema_Data.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\00000000-0000-0-AuthTables.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0001-Organisation.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0002-OrganisationKey.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0003-OrganisationMember.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\05_Data\20200520-0001-SampleTable-Data.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\05_Data\20200520-0002-SampleTable-Data.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dbup-sqlserver" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.5" />
+  </ItemGroup>
+
+</Project>
