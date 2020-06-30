@@ -30,11 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ThisApp\Services\Commands\" />
-    <Folder Include="ThisApp\Services\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Reliance.Web.Client\Reliance.Web.Client.csproj" />
   </ItemGroup>
 

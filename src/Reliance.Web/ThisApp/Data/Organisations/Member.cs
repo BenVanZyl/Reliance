@@ -10,5 +10,20 @@ namespace Reliance.Web.ThisApp.Data.Organisation
     /// </summary>
     public class Member
     {
+        #region Properties
+
+        #endregion //properties
+
+        #region Methods
+
+        public Member()
+        {
+        }
+
+        #endregion //methods
+
+        #region Configuration
+
+        #endregion //config//config
     }
 }

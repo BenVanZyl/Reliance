@@ -15,21 +15,26 @@
 
         <h2>The Basics</h2>
 
-        <form id="ProfileForm" method="post">
+        <form asp-page-handler="ProfileForm" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <input asp-for="Input.Id" type="hidden" />
+            <input asp-for="OrgData.Id" type="hidden" />
             <div class="form-group">
-                <label asp-for="Input.Name"></label>
-                <input asp-for="Input.Name" class="form-control" />
+                <label asp-for="OrgData.Name"></label>
+                <input asp-for="OrgData.Name" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Input.MasterEmail"></label>
-                <input asp-for="Input.MasterEmail" class="form-control" />
-                <span asp-validation-for="Input.MasterEmail" class="text-danger"></span>
+                <label asp-for="OrgData.MasterEmail"></label>
+                <input asp-for="OrgData.MasterEmail" class="form-control" />
+                <span asp-validation-for="OrgData.MasterEmail" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="btn btn-primary">
-                Save
-            </button>
+            <div class="form-group">
+                <button id="update-profile-button" type="submit" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+                @*<div class="form-group">
+            <ejs-button id="element" content="Save" cssClass="site-button" title="Save Org Data."></ejs-button>
+            </div>*@
         </form>
 
         @section Scripts {
@@ -66,7 +71,7 @@
 
             <e-grid-columns>
                 <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true" visible="false"></e-grid-column>
-                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.Input.Id"></e-grid-column>
+                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.OrgData.Id"></e-grid-column>
                 <e-grid-column field="PrivateKey" headerText="Private Key" visible="true"></e-grid-column>
                 <e-grid-column field="Description" headerText="Description" visible="true"></e-grid-column>
                 <e-grid-column field="ExpiryDate" headerText="Expiry Date" visible="true" allowEditing="true" headerTextAlign="Right" textAlign="Right"></e-grid-column>
@@ -82,14 +87,14 @@
         <h2>Members</h2>
 
         <ejs-grid id="GridMembers"
-              allowPaging="true"
-              allowSorting="true"
-              allowFiltering="false"
-              allowGrouping="false"
-              toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })"
-              created="onLoadGrid"
-              dataBound="dataBoundGrid"
-              actionFailure="actionFailureGrid">
+                  allowPaging="true"
+                  allowSorting="true"
+                  allowFiltering="false"
+                  allowGrouping="false"
+                  toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })"
+                  created="onLoadGrid"
+                  dataBound="dataBoundGrid"
+                  actionFailure="actionFailureGrid">
 
             <e-grid-editSettings allowAdding="true"
                                  allowDeleting="true"
@@ -104,7 +109,7 @@
 
             <e-grid-columns>
                 <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true" visible="false"></e-grid-column>
-                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.Input.Id"></e-grid-column>
+                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.OrgData.Id"></e-grid-column>
 
                 <e-grid-column field="ModifyDateTime" headerText="Last Modified" visible="true" allowEditing="false" headerTextAlign="Right" textAlign="Right"></e-grid-column>
             </e-grid-columns>

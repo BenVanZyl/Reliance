@@ -3,38 +3,89 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using Reliance.Web.Client;
+using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Infrastructure;
+using Reliance.Web.ThisApp.Services.Commands;
+using Reliance.Web.ThisApp.Services.Queries;
+using SnowStorm.Infrastructure.QueryExecutors;
 
 namespace Reliance.Web.Pages
 {
     [Authorize]
-    public class ProfileModel : PageModel
+    public class ProfileModel : BasePageModel
     {
+        public ProfileModel(ILogger<object> logger, IQueryExecutor executor, IMediator mediator) : base(logger, executor, mediator)
+        {
+        }
 
         public async Task OnGet()
         {
-            //init object
-            if (Input == null)
-            {
-                Input = new InputModel()
-                {
-                    Id = "0",
-                    Name = "",
-                    MasterEmail = User.Identity.Name
-                };
-            }
-
-            //get data from db
-
-            //set grid api addapter
-            WebApiAdapterUrlKeys = $"/api/oranisations/{Input.Id}/keys/";
-            WebApiAdapterUrlMembers = $"/api/oranisations/{Input.Id}/members/";
+            await GetData();
         }
 
-        public async Task OnProfileFormPost()
+        private async Task GetData()
         {
+            //init object
+            if (OrgData == null || OrgData.MasterEmail != User.Identity.Name)
+            {
+                OrgData = new OrgDataModel()
+                {
+                    Id = "0",
+                    Name = User.Identity.Name.Replace("@", " at "),
+                    MasterEmail = User.Identity.Name
+                };
+
+                //get data from db
+                var org = await Executor.ExecuteAsync(new GetOrganisationsQuery(User.Identity.Name));
+                if (org != null && org.Count > 0)
+                {   // TODO: List in dropdown for user to select
+                    var o = org.First();
+                    OrgData.Id = o.Id.ToString();
+                    OrgData.Name = o.Name;
+                    OrgData.MasterEmail = o.MasterEmail;
+                }
+                else
+                {
+                    var orgNew = await Mediator.Send(new CreateOrganisationCommand(OrgData.Name, OrgData.MasterEmail));
+                    if (orgNew != null)
+                        OrgData.Id = orgNew.Id.ToString();
+                }
+            }
+
+            //set grid api addapter
+            WebApiAdapterUrlKeys = $"/api/oranisations/{OrgData.Id}/keys/";
+            WebApiAdapterUrlMembers = $"/api/oranisations/{OrgData.Id}/members/";
+        }
+
+        public async Task OnPostProfileForm()
+        {
+            try
+            {
+                var org = await Mediator.Send(new UpdateOrganisationCommand(OrgData.Id, OrgData.Name, OrgData.MasterEmail));
+
+                OrgData.Id = org.Id.ToString();
+                OrgData.Name = org.Name;
+                OrgData.MasterEmail = org.MasterEmail;
+            }
+            catch (ThisAppExecption ex)
+            {
+                //return StatusCode(ex.StatusCode, ex.Message);
+                StatusMessage = ex.Message;
+            }
+            catch (System.Exception ex)
+            {
+                //return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                // Log ex.
+                SiteLogger.LogError(this.ToString(), ex);
+                StatusMessage = Messages.Err500;
+            }
 
         }
 
@@ -45,9 +96,9 @@ namespace Reliance.Web.Pages
         public string StatusMessage { get; set; } = "";
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public OrgDataModel OrgData { get; set; } = new OrgDataModel();
 
-        public class InputModel
+        public class OrgDataModel
         {
             [Required]
             [DataType(DataType.Text)]
