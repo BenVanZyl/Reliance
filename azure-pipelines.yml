@@ -4,7 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+  branches:
+    include:
+      - master
+      - refs/tags/*
 
 pool:
   vmImage: 'windows-latest'
@@ -16,7 +19,11 @@ variables:
 
 steps:
 
-- task: NuGetToolInstaller@1
+- task: gitversion/execute@0
+  inputs:
+    useConfigFile: true
+    configFilePath: 'GitVersion.yml'
+    updateAssemblyInfo: false
 
 - task: NuGetCommand@2
   inputs:
@@ -25,7 +32,7 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"" /p:version=$(NUGETVERSION)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -33,3 +40,13 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: WhiteSource Bolt@20
+  timeoutInMinutes: 10
+  continueOnError: true
