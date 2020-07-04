@@ -46,7 +46,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-
-- task: WhiteSource Bolt@20
-  timeoutInMinutes: 10
-  continueOnError: true
