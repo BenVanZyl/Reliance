@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Reliance.Web.Client;
 using Reliance.Web.ThisApp.Data.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
-using Reliance.Web.ThisApp.Services.Queries;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Reliance.Web.ThisApp.Services.Commands
+namespace Reliance.Web.ThisApp.Services.Organisations.Commands
 {
     public class CreateOrganisationCommand : IRequest<Organisation>
     {

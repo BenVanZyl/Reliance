@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
     <None Remove="Scripts\01_Deployment\00_Schema\00000000-0000-Schema_Data.sql" />
     <None Remove="Scripts\01_Deployment\01_Tables\00000000-0000-0-AuthTables.sql" />
@@ -17,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

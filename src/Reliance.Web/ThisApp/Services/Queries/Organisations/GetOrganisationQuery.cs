@@ -3,18 +3,15 @@ using Reliance.Web.Client;
 using Reliance.Web.ThisApp.Data.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
 using SnowStorm.Infrastructure.QueryExecutors;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Reliance.Web.ThisApp.Services.Queries
+namespace Reliance.Web.ThisApp.Services.Organisations.Queries
 {
     public class GetOrganisationQuery : IMappableSingleItemQuery<Organisation>
     {
-        private long? _id;
-        private string _name;
-        private string _masterEmail;
+        private readonly long? _id;
+        private readonly string _name;
+        private readonly string _masterEmail;
 
         public GetOrganisationQuery(long id)
         {

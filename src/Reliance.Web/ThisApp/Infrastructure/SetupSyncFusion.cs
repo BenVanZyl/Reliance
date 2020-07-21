@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.ThisApp.Infrastructure
 {
-    public static class MySyncFusion
+    public static class SetupSyncFusion
     {
         public static void SetLicence()
         {
@@ -17,4 +17,19 @@ namespace Reliance.Web.ThisApp.Infrastructure
         public static string CcsUrl => $"https://cdn.syncfusion.com/ej2/{Version}/bootstrap4.css";
         public static string JsUrl => $"https://cdn.syncfusion.com/ej2/{Version}/dist/ej2.min.js";
     }
+
+    //////////
+    //  pages/shared/_layout.cshtml
+    //    <header>
+    //      <link rel="stylesheet" href="@ThisApp.Infrastructure.SetupSyncFusion.CcsUrl" />
+    //      <script src = "@ThisApp.Infrastructure.SetupSyncFusion.JsUrl" ></ script >
+    //    <body>
+    //      <ejs-scripts></ejs-scripts>
+    //////////
+    ///  pages/_ViewImports.cshtml
+    ///     @addTagHelper *, Syncfusion.EJ2
+    //////////
+    ///
+    //////////
+
 }

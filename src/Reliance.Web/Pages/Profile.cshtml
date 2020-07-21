@@ -1,4 +1,6 @@
 ﻿@page
+@using Syncfusion.EJ2.Charts;
+@using Syncfusion.EJ2.Navigations;
 @model Reliance.Web.Pages.ProfileModel
 @{
     ViewData["Title"] = "Profile";
@@ -13,7 +15,7 @@
 <div class="row">
     <div class="col-md-4">
 
-        <h2>The Basics</h2>
+        <h2>Basic Info</h2>
 
         <form asp-page-handler="ProfileForm" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -32,35 +34,28 @@
                     Save
                 </button>
             </div>
-                @*<div class="form-group">
-            <ejs-button id="element" content="Save" cssClass="site-button" title="Save Org Data."></ejs-button>
-            </div>*@
         </form>
-
-        @section Scripts {
-            <partial name="_ValidationScriptsPartial" />
-        }
 
     </div>
     <div class="col-md-8">
 
-        <h2>Private Keys</h2>
+        <h2>Personal Access Tokens</h2>
 
-        <ejs-button id="element" content="Send" cssClass="site-button" title="Send a notification to the owner of the tag and what it is attached to."></ejs-button>
 
         <ejs-grid id="GridPrivateKeys"
                   allowPaging="true"
                   allowSorting="true"
                   allowFiltering="false"
                   allowGrouping="false"
-                  toolbar="@(new List<string>() { "Add", "Cancel", "Update" })"
+                  toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })"
                   created="onLoadGrid"
                   dataBound="dataBoundGrid"
-                  actionFailure="actionFailureGrid">
+                  actionFailure="actionFailureGrid"
+                  actionComplete="actionComplete">
 
             <e-grid-editSettings allowAdding="true"
-                                 allowDeleting="false"
-                                 allowEditing="false"
+                                 allowDeleting="true"
+                                 allowEditing="true"
                                  newRowPosition="Top"
                                  showDeleteConfirmDialog="true">
             </e-grid-editSettings>
@@ -71,15 +66,18 @@
 
             <e-grid-columns>
                 <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true" visible="false"></e-grid-column>
-                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.OrgData.Id"></e-grid-column>
-                <e-grid-column field="PrivateKey" headerText="Private Key" visible="true"></e-grid-column>
+                <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" allowEditing="false" defaultValue="@Model.OrgData.Id"></e-grid-column>
+                <e-grid-column field="PrivateKey" headerText="Private Key" visible="true" allowEditing="false"></e-grid-column>
                 <e-grid-column field="Description" headerText="Description" visible="true"></e-grid-column>
-                <e-grid-column field="ExpiryDate" headerText="Expiry Date" visible="true" allowEditing="true" headerTextAlign="Right" textAlign="Right"></e-grid-column>
-                <e-grid-column field="ModifyDateTime" headerText="Last Modified" visible="true" allowEditing="false" headerTextAlign="Right" textAlign="Right"></e-grid-column>
+                <e-grid-column field="ExpiryDate" headerText="Expiry Date" visible="true" allowEditing="true" headerTextAlign="Right" textAlign="Right" type="date" format="yyyy-MM-dd" editType="DatePicker"></e-grid-column>
+                <e-grid-column field="ModifyDateString" headerText="Last Modified" visible="true" allowEditing="false" headerTextAlign="Right" textAlign="Right"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
+
     </div>
 </div>
+
+
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-8">
@@ -110,7 +108,9 @@
             <e-grid-columns>
                 <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true" visible="false"></e-grid-column>
                 <e-grid-column field="OrganisationId" headerText="OrganisationId" visible="false" defaultValue="@Model.OrgData.Id"></e-grid-column>
-
+                <e-grid-column field="Email" headerText="Email" visible="true"></e-grid-column>
+                <e-grid-column field="Name" headerText="Name" visible="true"></e-grid-column>
+                <e-grid-column field="IsActive" headerText="IsActive" visible="true"></e-grid-column>
                 <e-grid-column field="ModifyDateTime" headerText="Last Modified" visible="true" allowEditing="false" headerTextAlign="Right" textAlign="Right"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
@@ -118,3 +118,14 @@
     </div>
 </div>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<script>
+    function actionComplete(args) {
+        if ((args.requestType === 'beginEdit' || args.requestType === 'edit')) {
+            console.log("### editing ###");
+            (args.form.elements.namedItem('Description')).focus();
+        }
+    }
+</script>

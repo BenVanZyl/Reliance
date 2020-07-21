@@ -9,6 +9,7 @@ Begin
 		OrganisationId		bigint NOT NULL,
 		Email				varchar(1024) NOT NULL,
 		Name				nvarchar(512),
+		IsActive			bit default 1,
 		CONSTRAINT [PK_OrganisationMember] PRIMARY KEY CLUSTERED
 		(
 			[Id] ASC

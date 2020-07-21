@@ -3,13 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Reliance.Web.Client;
 using Reliance.Web.ThisApp.Infrastructure;
+using Reliance.Web.ThisApp.Services.Organisations.Queries;
 using SnowStorm.Infrastructure.Domain;
 using SnowStorm.Infrastructure.QueryExecutors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Reliance.Web.ThisApp.Services.Queries;
 
 namespace Reliance.Web.ThisApp.Data.Organisation
 {
@@ -38,6 +35,7 @@ namespace Reliance.Web.ThisApp.Data.Organisation
             //create new record
             var value = new Organisation(name, masterEmail);
             await executor.Add<Organisation>(value);
+            await executor.Save();
 
             //return record
             return value;

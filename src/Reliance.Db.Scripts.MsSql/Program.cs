@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 
 namespace Reliance.Db.Scripts.MsSql
@@ -21,9 +22,15 @@ namespace Reliance.Db.Scripts.MsSql
             {
                 if (_configuration == null)
                 {
+                    var fileName = "appsettings.json";
+#if DEBUG
+                    Console.WriteLine("Debug version");
+                    fileName = "appsettings.Development.json";
+#endif
+
                     var builder = new ConfigurationBuilder()
-                       .SetBasePath(Directory.GetCurrentDirectory())
-                       .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                       .SetBasePath(AppContext.BaseDirectory)
+                       .AddJsonFile(fileName, optional: true, reloadOnChange: true);
 
                     _configuration = builder.Build();
                 }

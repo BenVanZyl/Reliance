@@ -12,8 +12,8 @@ using Microsoft.Extensions.Logging;
 using Reliance.Web.Client;
 using Reliance.Web.ThisApp.Data.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
-using Reliance.Web.ThisApp.Services.Commands;
-using Reliance.Web.ThisApp.Services.Queries;
+using Reliance.Web.ThisApp.Services.Organisations.Commands;
+using Reliance.Web.ThisApp.Services.Organisations.Queries;
 using SnowStorm.Infrastructure.QueryExecutors;
 
 namespace Reliance.Web.Pages

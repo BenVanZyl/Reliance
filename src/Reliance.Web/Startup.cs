@@ -54,12 +54,15 @@ namespace Reliance.Web
             //configure all of snowstorm -- query executor, mediator, etc.
             SnowStorm.Infrastructure.Configurations.Setup.All(ref services, typeof(Startup).GetTypeInfo().Assembly, new MappingProfile());
 
+            //swagger
+            SetupSwagger.AddService(ref services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            MySyncFusion.SetLicence();
+            SetupSyncFusion.SetLicence();
 
             if (env.IsDevelopment())
             {
@@ -75,6 +78,9 @@ namespace Reliance.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            //swagger
+            SetupSwagger.AddConfiguration(ref app);
 
             app.UseRouting();
 
