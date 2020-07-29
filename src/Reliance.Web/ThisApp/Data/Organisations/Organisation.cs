@@ -28,7 +28,7 @@ namespace Reliance.Web.ThisApp.Data.Organisation
         internal static async Task<Organisation> Create(IQueryExecutor executor, string name, string masterEmail)
         {
             //validation
-            var existingValue = await executor.ExecuteAsync(new GetOrganisationQuery(name, masterEmail));
+            var existingValue = await executor.Execute(new GetOrganisationQuery(name, masterEmail));
             if (existingValue != null)
                 throw new ThisAppExecption(StatusCodes.Status409Conflict, Messages.Err409ObjectExists("Organisation"));
 

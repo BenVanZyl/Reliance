@@ -43,7 +43,7 @@ namespace Reliance.Web.Pages
                 };
 
                 //get data from db
-                var org = await Executor.ExecuteAsync(new GetOrganisationsQuery(User.Identity.Name));
+                var org = await Executor.Execute(new GetOrganisationsQuery(User.Identity.Name));
                 if (org != null && org.Count > 0)
                 {   // TODO: List in dropdown for user to select
                     var o = org.First();

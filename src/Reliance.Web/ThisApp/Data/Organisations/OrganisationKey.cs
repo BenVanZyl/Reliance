@@ -45,7 +45,7 @@ namespace Reliance.Web.ThisApp.Data.Organisation
                 data.ExpiryDate = DateTime.Now.AddYears(3);
 
             //check for duplicates
-            var duplicates = await executor.ExecuteAsync(new GetOrganisationKeysQuery(data));
+            var duplicates = await executor.Execute(new GetOrganisationKeysQuery(data));
             if (duplicates != null && duplicates.Count > 0)
                 throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417InvalidObjectData("Duplicate Private Key records not allowed."));
 

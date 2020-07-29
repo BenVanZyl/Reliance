@@ -32,7 +32,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
                 //TODO: user id linked to org?
                 //await MemberIsValid(memberId);
 
-                var results = await Executor.ExecuteAsync(new GetOrganisationsQuery(User.Identity.Name));
+                var results = await Executor.Execute(new GetOrganisationsQuery(User.Identity.Name));
 
                 return Ok(results);
             }

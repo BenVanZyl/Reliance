@@ -7,13 +7,8 @@ using Reliance.Web.Client;
 using Reliance.Web.Client.Dto.Organisations;
 using Reliance.Web.ThisApp.Infrastructure;
 using Reliance.Web.ThisApp.Services.Commands.Organisations;
-using Reliance.Web.ThisApp.Services.Organisations.Commands;
-using Reliance.Web.ThisApp.Services.Organisations.Queries;
 using Reliance.Web.ThisApp.Services.Queries.Organisations;
 using SnowStorm.Infrastructure.QueryExecutors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Reliance.Web.ThisApp.Api.Organisations

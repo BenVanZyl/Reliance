@@ -38,7 +38,7 @@ namespace Reliance.Web.ThisApp.Services.Commands.Organisations
             //if (orgId == 0)
             //    throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
 
-            var orgKey = await _executor.ExecuteAsync(new GetOrganisationKeyQuery(request.Id));
+            var orgKey = await _executor.Execute(new GetOrganisationKeyQuery(request.Id));
             if (orgKey == null)
                 throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key record does not exists."));
 

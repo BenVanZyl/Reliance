@@ -55,7 +55,7 @@ namespace Reliance.Web.ThisApp.Services.Organisations.Commands
             //TODO: Validate that email address is valid with RegEx compare
 
             //get existing and validate master email address to confirm that the change is allowed. create if nothing found.
-            var org = await _executor.ExecuteAsync(new GetOrganisationQuery(request.Id));
+            var org = await _executor.Execute(new GetOrganisationQuery(request.Id));
             if (org == null)
                 throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation"));
 

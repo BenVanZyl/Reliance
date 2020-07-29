@@ -66,7 +66,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
                 //TODO: Secure api for valid subscription
 
-                if (organisationId.ToString() != data.OrganisationId)
+                if (organisationId != data.OrgId)
                     throw new ThisAppExecption(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
 
                 var results = await Mediator.Send(new CreateOrganisationMemberCommand(data));
