@@ -23,7 +23,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
         [HttpGet]
         [Route("api/oranisations/{organisationId:long}")]
-        [RequirePersonalAccessTokenAttribute]
+        //[RequirePersonalAccessToken]
         //[ValidateAntiForgeryToken()]
         public async Task<IActionResult> GetOrganisation(long organisationId)
         {

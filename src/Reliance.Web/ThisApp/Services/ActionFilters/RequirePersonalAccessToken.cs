@@ -5,10 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
 
 namespace Reliance.Web.ThisApp.Services.ActionFilters
 {
-    public class RequirePersonalAccessToken : Attribute //IUpdateSwagger, IAddCorsHeaders
+    public class RequirePersonalAccessToken : ActionFilterAttribute //: Attribute //IUpdateSwagger, IAddCorsHeaders
     {
         public const string PersonalAccessToken = "personal-access-token";
         public string[] AdditionalCorsHeaders => new[] { PersonalAccessToken };
