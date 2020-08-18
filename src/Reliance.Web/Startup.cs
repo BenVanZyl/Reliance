@@ -49,7 +49,11 @@ namespace Reliance.Web
             }); //for api controller & SyncFusion
 
             // Setup query executor & mediatr using SnowStorm package
-            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); // TODO: Move Azure Vault
+            var cnnString = PrivateSettings.ConnectionString;
+#if DEBUG
+            cnnString =  Configuration.GetConnectionString("DefaultConnection");
+#endif
+            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(cnnString)); // TODO: Move Azure Vault
 
             //configure all of snowstorm -- query executor, mediator, etc.
             SnowStorm.Infrastructure.Configurations.Setup.All(ref services, typeof(Startup).GetTypeInfo().Assembly, new MappingProfile());

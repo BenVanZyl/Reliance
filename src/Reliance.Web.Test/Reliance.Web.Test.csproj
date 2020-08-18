@@ -20,4 +20,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Reliance.Db.Scripts.MsSql\Reliance.Db.Scripts.MsSql.csproj" />
+    <ProjectReference Include="..\Reliance.Web.Client\Reliance.Web.Client.csproj" />
+    <ProjectReference Include="..\Reliance.Web\Reliance.Web.csproj" />
+  </ItemGroup>
+
 </Project>

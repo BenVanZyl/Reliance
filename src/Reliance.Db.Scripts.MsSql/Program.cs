@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Reliance.Db.Scripts.MsSql
 {
@@ -10,8 +11,13 @@ namespace Reliance.Db.Scripts.MsSql
 
         static void Main(string[] args)
         {
-            _connectionString = Configuration.GetConnectionString("DefaultConnection");
+            if (args.Count() == 1)
+                _connectionString = args[0];
+            else
+                _connectionString = Configuration.GetConnectionString("DefaultConnection");
+
             ScriptExecutor.PerformUpgrade(_connectionString);
+
             // return 0;
         }
 
@@ -27,7 +33,6 @@ namespace Reliance.Db.Scripts.MsSql
                     Console.WriteLine("Debug version");
                     fileName = "appsettings.Development.json";
 #endif
-
                     var builder = new ConfigurationBuilder()
                        .SetBasePath(AppContext.BaseDirectory)
                        .AddJsonFile(fileName, optional: true, reloadOnChange: true);

@@ -3,6 +3,8 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+name: '$(Build.DefinitionName)-$(date:yyyyMMdd)-$(rev:.r)'
+
 trigger:
   branches:
     include:
@@ -10,10 +12,9 @@ trigger:
       - refs/tags/*
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
-  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -23,31 +24,74 @@ steps:
   inputs:
     versionSpec: '0.0.0'
     includePrerelease: true
-    
+
 - task: gitversion/execute@0
   inputs:
     useConfigFile: true
     configFilePath: 'GitVersion.yml'
     updateAssemblyInfo: false
 
-- task: NuGetCommand@2
+- task: PowerShell@2
+  displayName: Set the name of the build based on GitVersion.SemVer
   inputs:
-    restoreSolution: '$(solution)'
+    targetType: 'inline'
+    script: |
+      [string] $buildName = "$(SEMVER)"
+      Write-Host "Setting the name of the build to '$buildName'."
+      Write-Host "##vso[build.updatebuildnumber]$buildName"
 
-- task: VSBuild@1
+- task: UseDotNet@2
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"" /p:version=$(NUGETVERSION)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    packageType: sdk
+    version: 3.1.x
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: Restore
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: restore
+    projects: '**/*.csproj'
+    feedsToUse: config
+    nugetConfigPath: NuGet.config
 
+
+- task: DotNetCoreCLI@2
+  displayName: Build Reliance.Web
+  inputs:
+    command: 'build'
+    projects: '**/Reliance.Web.csproj'
+    arguments: --output $(System.DefaultWorkingDirectory)/WebApp --configuration Release
+
+- task: DotNetCoreCLI@2
+  displayName: Build Reliance.Db.Scripts.MsSql
+  inputs:
+    command: 'build'
+    projects: '**/Reliance.Db.Scripts.MsSql.csproj'
+    arguments: --output $(System.DefaultWorkingDirectory)/DbUpdates --configuration Release
+
+- task: DotNetCoreCLI@2
+  displayName: Build Tests
+  inputs:
+    command: 'build'
+    projects: '**/Reliance.Web.Test.csproj'
+    arguments: --output $(System.DefaultWorkingDirectory)/Tests --configuration Release
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/DbUpdates'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/DbUpdates'
+    CleanTargetFolder: true
+    OverWrite: true
+
+# this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'

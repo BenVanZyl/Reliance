@@ -13,6 +13,8 @@ namespace Reliance.Web.ThisApp.Infrastructure
         public static string EmailUserName => Configuration["AppSettings:EmailUserName"];
         public static string EmailPassword => Configuration["AppSettings:EmailPassword"];
 
+        public static string ConnectionString => Configuration["AppSettings:ConnectionString"];
+
         // Configuration setup
         private static IConfigurationRoot _configuration = null;
         public static IConfigurationRoot Configuration
