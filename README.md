@@ -37,4 +37,4 @@ If you want to learn more about creating good readme files then refer the follow
 
 Deployment command in Powershell for db up:
 
-dotnet.exe "$(System.DefaultWorkingDirectory)/_SnowBird.Web.Core3.0/drop/DbUpdates/Reliance.Db.Scripts.MsSql.dll" "$(DbUpConnectionString)"
+dotnet.exe "$(System.DefaultWorkingDirectory)/**/drop/DbUpdates/Reliance.Db.Scripts.MsSql.dll" "$(DbUpConnectionString)"

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Reliance.Web.ThisApp.Infrastructure;
 using Serilog;
+using Serilog.Sinks.MSSqlServer.Sinks.MSSqlServer.Options;
 using System;
 
 namespace Reliance.Web
@@ -20,10 +22,20 @@ namespace Reliance.Web
                 .AddJsonFile(configFileName)
                 .Build();
 
+            var cnnString = PrivateSettings.ConnectionString;
+#if DEBUG
+            cnnString = config.GetSection("ConnectionStrings:DefaultConnection").Value;
+#endif
+
             //Initialize Logger
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)
+                .WriteTo
+                .MSSqlServer(
+                    connectionString: cnnString,
+                    sinkOptions: new SinkOptions { TableName = "LogEvents" })
                 .CreateLogger();
+
             try
             {
                 Log.Information("Application Starting.");

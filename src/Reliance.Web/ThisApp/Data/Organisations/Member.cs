@@ -53,7 +53,7 @@ namespace Reliance.Web.ThisApp.Data.Organisation
         }
 
         public void SetEmail(string value)
-        {
+        { //todo: add validatio
             if (Email != value)
                 Email = value;
         }
