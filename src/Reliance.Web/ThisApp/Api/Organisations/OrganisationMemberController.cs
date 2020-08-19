@@ -43,11 +43,12 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             }
             catch (ThisAppExecption ex)
             {
+                Logger.LogError($"GetOrgMembers, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
-                //log ex
+                Logger.LogError($"GetOrgMembers, {StatusCodes.Status500InternalServerError}", ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
@@ -74,13 +75,14 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             }
             catch (ThisAppExecption ex)
             {
+                Logger.LogError($"PostOrgKey, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Logger.LogError($"PostOrgKey, {StatusCodes.Status500InternalServerError}", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
-
         }
 
 
@@ -105,13 +107,14 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             }
             catch (ThisAppExecption ex)
             {
+                Logger.LogError($"PutOrgKey, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Logger.LogError($"PutOrgKey, {StatusCodes.Status500InternalServerError}", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
-
         }
 
 
@@ -134,13 +137,14 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             }
             catch (ThisAppExecption ex)
             {
+                Logger.LogError($"DeleteOrgKey, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Logger.LogError($"DeleteOrgKey, {StatusCodes.Status500InternalServerError}", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
-
         }
 
     }

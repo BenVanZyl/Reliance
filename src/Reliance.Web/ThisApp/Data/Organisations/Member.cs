@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Reliance.Web.Client;
 using Reliance.Web.Client.Dto.Organisations;
+using Reliance.Web.ThisApp.Infrastructure;
 using SnowStorm.Infrastructure.Domain;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
@@ -32,10 +35,12 @@ namespace Reliance.Web.ThisApp.Data.Organisation
 
         public static async Task<Member> Create(IQueryExecutor executor, OrganisationMemberDto data)
         {
-
             //does data.Email exists?  no duplicates allowed
+            var value = await executor.Execute(new Reliance.Web.ThisApp.Services.Queries.Organisations.GetOrganisationMemberQuery(data.OrgId, data.Email));
+            if (value != null)
+                throw new ThisAppExecption(StatusCodes.Status409Conflict, Messages.Err409ObjectExists("Organisation Member"));
 
-            var value = new Member(data);
+            value = new Member(data);
             await executor.Add<Member>(value);
             await executor.Save();
 
