@@ -23,7 +23,6 @@ namespace Reliance.Web
             //Initialize Logger
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)
-                .WriteTo.MSSqlServer()
                 .CreateLogger();
             try
             {
