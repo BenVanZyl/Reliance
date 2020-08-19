@@ -31,3 +31,10 @@ If you want to learn more about creating good readme files then refer the follow
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+
+# Note
+
+Deployment command in Powershell for db up:
+
+dotnet.exe "$(System.DefaultWorkingDirectory)/_SnowBird.Web.Core3.0/drop/DbUpdates/Reliance.Db.Scripts.MsSql.dll" "$(DbUpConnectionString)"
