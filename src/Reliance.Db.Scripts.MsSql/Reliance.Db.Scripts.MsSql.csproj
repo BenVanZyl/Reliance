@@ -9,7 +9,9 @@
     <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
     <None Remove="Scripts\01_Deployment\00_Schema\00000000-0000-Schema_Data.sql" />
+    <None Remove="Scripts\01_Deployment\00_Schema\00000000-0001-Schema_EventLogging.sql" />
     <None Remove="Scripts\01_Deployment\01_Tables\00000000-0000-0-AuthTables.sql" />
+    <None Remove="Scripts\01_Deployment\01_Tables\00000000-0000-0001-EventLogging.sql" />
     <None Remove="Scripts\01_Deployment\01_Tables\20200520-0001-Organisation.sql" />
     <None Remove="Scripts\01_Deployment\01_Tables\20200520-0002-OrganisationKey.sql" />
     <None Remove="Scripts\01_Deployment\01_Tables\20200520-0003-OrganisationMember.sql" />
@@ -24,10 +26,12 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\01_Deployment\00_Schema\00000000-0001-Schema_EventLogging.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\00_Schema\00000000-0000-Schema_Data.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\00000000-0000-0-AuthTables.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0001-Organisation.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0002-OrganisationKey.sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\00000000-0000-0001-EventLogging.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0003-OrganisationMember.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\05_Data\20200520-0001-SampleTable-Data.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\05_Data\20200520-0002-SampleTable-Data.sql" />
