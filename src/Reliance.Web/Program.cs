@@ -33,7 +33,14 @@ namespace Reliance.Web
                 .WriteTo
                 .MSSqlServer(
                     connectionString: cnnString,
-                    sinkOptions: new SinkOptions { TableName = "LogEvents" })
+                    sinkOptions: new SinkOptions
+                        {
+                            TableName = "Logs",
+                            SchemaName = "EventLogging",
+                            AutoCreateSqlTable = true
+                        },
+                    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Verbose
+                    )
                 .CreateLogger();
 
             try

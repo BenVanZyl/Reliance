@@ -60,8 +60,8 @@ namespace Reliance.Web.Pages
             }
 
             //set grid api addapter
-            WebApiAdapterUrlKeys = $"/api/oranisations/{OrgData.Id}/keys/";
-            WebApiAdapterUrlMembers = $"/api/oranisations/{OrgData.Id}/members/";
+            WebApiAdapterUrlKeys = $"/api/oranisations/{OrgData.Id}/keys";
+            WebApiAdapterUrlMembers = $"/api/oranisations/{OrgData.Id}/members";
         }
 
         public async Task OnPostProfileForm()
