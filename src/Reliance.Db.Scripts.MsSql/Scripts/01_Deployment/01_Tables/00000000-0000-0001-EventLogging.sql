@@ -19,22 +19,3 @@ Begin
 
 End
 GO
-
-If Not Exists(select 1 from sys.indexes Where name = 'IX_Logs_Level')
-Begin
-	CREATE NONCLUSTERED INDEX [IX_Logs_Level] ON [EventLogging].[Logs]
-	(
-		[Level]
-	)
-End
-Go
-
-
-If Not Exists(select 1 from sys.indexes Where name = 'IX_OrganisationMember_Email')
-Begin
-	CREATE NONCLUSTERED INDEX [IX_OrganisationMember_Email] ON [Info].[OrganisationMember]
-	(
-		Email ASC
-	)
-End
-Go
