@@ -25,7 +25,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
         }
 
         [HttpGet]
-        [Route("api/oranisations/{organisationId:long}/members/")]
+        [Route("api/organisations/{organisationId:long}/members/")]
         //[ValidateAntiForgeryToken()]
         public async Task<IActionResult> GetOrgMembers(long organisationId)
         {
@@ -44,17 +44,17 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             catch (ThisAppExecption ex)
             {
                 Logger.LogError($"GetOrgMembers, {ex.StatusCode}, {ex.Message}", ex);
-                return StatusCode(ex.StatusCode, ex.Message);
+                throw new ThisAppExecption(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"GetOrgMembers, {StatusCodes.Status500InternalServerError}", ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 
         [HttpPost]
-        [Route("api/oranisations/{organisationId:long}/members/")]
+        [Route("api/organisations/{organisationId:long}/members")]
         //[ValidateAntiForgeryToken()]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> PostOrgKey(long organisationId, [FromBody] OrganisationMemberDto data)
@@ -76,18 +76,18 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             catch (ThisAppExecption ex)
             {
                 Logger.LogError($"PostOrgKey, {ex.StatusCode}, {ex.Message}", ex);
-                return StatusCode(ex.StatusCode, ex.Message);
+                throw new ThisAppExecption(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"PostOrgKey, {StatusCodes.Status500InternalServerError}", ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 
 
         [HttpPut]
-        [Route("api/oranisations/{organisationId:long}/members/")]
+        [Route("api/organisations/{organisationId:long}/members/")]
         //[ValidateAntiForgeryToken()]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> PutOrgKey(long organisationId, [FromBody] OrganisationMemberDto data)
@@ -108,18 +108,18 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             catch (ThisAppExecption ex)
             {
                 Logger.LogError($"PutOrgKey, {ex.StatusCode}, {ex.Message}", ex);
-                return StatusCode(ex.StatusCode, ex.Message);
+                throw new ThisAppExecption(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"PutOrgKey, {StatusCodes.Status500InternalServerError}", ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 
 
         [HttpDelete]
-        [Route("api/oranisations/{organisationId:long}/members/")]
+        [Route("api/organisations/{organisationId:long}/members/{id:long}")]
         //[ValidateAntiForgeryToken()]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> DeleteOrgKey(long organisationId, long id)
@@ -138,12 +138,12 @@ namespace Reliance.Web.ThisApp.Api.Organisations
             catch (ThisAppExecption ex)
             {
                 Logger.LogError($"DeleteOrgKey, {ex.StatusCode}, {ex.Message}", ex);
-                return StatusCode(ex.StatusCode, ex.Message);
+                throw new ThisAppExecption(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"DeleteOrgKey, {StatusCodes.Status500InternalServerError}", ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 

@@ -22,7 +22,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
         }
 
         [HttpGet]
-        [Route("api/oranisations/{organisationId:long}/keys/")]
+        [Route("api/organisations/{organisationId:long}/keys/")]
         //[ValidateAntiForgeryToken()]
         public async Task<IActionResult> GetPrivateKeys(long organisationId)
         {
@@ -51,7 +51,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
         }
 
         [HttpPost]
-        [Route("api/oranisations/{organisationId:long}/keys/")]
+        [Route("api/organisations/{organisationId:long}/keys/")]
         //[ValidateAntiForgeryToken()]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> PostOrgKey(long organisationId, [FromBody] OrganisationKeyDto data)
@@ -85,7 +85,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
 
         [HttpPut]
-        [Route("api/oranisations/{organisationId:long}/keys/")]
+        [Route("api/organisations/{organisationId:long}/keys/")]
         //[ValidateAntiForgeryToken()]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> PutOrgKey(long organisationId, [FromBody] OrganisationKeyDto data)
@@ -118,7 +118,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
 
         [HttpDelete]
-        [Route("api/oranisations/{organisationId:long}/keys/")]
+        [Route("api/organisations/{organisationId:long}/keys/{id:long}")]
         //[ValidateAntiForgeryToken()]
         //[RequiresPermission(ApplicationType., PermissionType.Admin)]
         public async Task<IActionResult> DeleteOrgKey(long organisationId, long id)
