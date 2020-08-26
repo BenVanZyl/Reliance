@@ -15,11 +15,17 @@ https://www.nuget.org/packages/SnowStorm/
 # Getting Started
 1. Clone the repo
 2. Create a MS SQL database (any version, even local db)
-3. Set the connection strings to it (appsettings.json):
+3. Supply the connection strings and other applicable settings (appsettings.json):
+
+       appsettings.json => Production settings
+
+       appsettings.Development.json => development settings
+
 - Reliance.Db.Scripts.MsSql
 - Reliance.Web
 4. Set Reliance.Db.Scripts.MsSql as start up project and run the code.  This should run the database scripts.
 5. Set Reliance.Web as start up project and run the code.
+
 
 # Build and Test
 TODO: Describe and show how to build your code and run the tests. 
@@ -36,5 +42,4 @@ If you want to learn more about creating good readme files then refer the follow
 # Note
 
 Deployment command in Powershell for db up:
-
 dotnet.exe "$(System.DefaultWorkingDirectory)/_BenVanZyl.Reliance/drop/DbUpdates/Reliance.Db.Scripts.MsSql.dll" "$(DbUpConnectionString)"
