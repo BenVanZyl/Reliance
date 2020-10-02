@@ -5,8 +5,8 @@ Begin
 	Create Table DevOps.Dashboards
 	(
 		Id					bigint	Identity(1,1) NOT NULL,
-		CreateDateTime		dateTime NOT NULL,
-		ModifyDateTime		dateTime NOT NULL,
+		CreatedOn		dateTime NOT NULL,
+		ModifiedOn		dateTime NOT NULL,
 		AppId				bigint NOT NULL,
 		StageId				bigint NOT NULL,
 		BadgeUrl			nvarchar(2048) NOT NULL,

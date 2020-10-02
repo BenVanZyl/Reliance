@@ -4,8 +4,8 @@ Begin
 	Create Table Info.OrganisationKey
 	(
 		Id					bigint	Identity(1,1) NOT NULL,
-		CreateDateTime		dateTime NOT NULL,
-		ModifyDateTime		dateTime NOT NULL,
+		CreatedOn		dateTime NOT NULL,
+		ModifiedOn		dateTime NOT NULL,
 		OrganisationId		bigint NOT NULL,
 		PrivateKey			nvarchar(36) NOT NULL Default NewID(),
 		Description			nvarchar(256) NULL,

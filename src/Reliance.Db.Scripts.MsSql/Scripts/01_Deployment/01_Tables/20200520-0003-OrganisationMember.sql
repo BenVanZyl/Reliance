@@ -4,8 +4,8 @@ Begin
 	Create Table Info.OrganisationMember
 	(
 		Id					bigint	Identity(1,1) NOT NULL,
-		CreateDateTime		dateTime NOT NULL,
-		ModifyDateTime		dateTime NOT NULL,
+		CreatedOn		dateTime NOT NULL,
+		ModifiedOn		dateTime NOT NULL,
 		OrganisationId		bigint NOT NULL,
 		Email				varchar(1024) NOT NULL,
 		Name				nvarchar(512),

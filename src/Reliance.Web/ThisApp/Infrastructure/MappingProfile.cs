@@ -16,7 +16,7 @@ namespace Reliance.Web.ThisApp.Infrastructure
 
             CreateMap<OrganisationKey, OrganisationKeyDto>()
                 .ForMember(d => d.OrganisationId, m => m.MapFrom(s => s.OrganisationId.ToString()))
-                .ForMember(d => d.ExpiryDate, m => m.MapFrom(s => s.ExpiryDateTime));
+                .ForMember(d => d.ExpiryDate, m => m.MapFrom(s => s.ExpiryDate));
 
             CreateMap<Member, OrganisationMemberDto>()
                 .ForMember(d => d.OrganisationId, m => m.MapFrom(s => s.OrganisationId.ToString()));

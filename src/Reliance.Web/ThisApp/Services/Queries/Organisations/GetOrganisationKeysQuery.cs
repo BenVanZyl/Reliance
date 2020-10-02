@@ -43,7 +43,7 @@ namespace Reliance.Web.ThisApp.Services.Queries.Organisations
                     (
                         w =>
                         w.Description == _data.Description &&
-                        w.ExpiryDateTime == _data.ExpiryDate &&
+                        w.ExpiryDate == _data.ExpiryDate &&
                         w.PrivateKey == _data.PrivateKey
                     );
             }

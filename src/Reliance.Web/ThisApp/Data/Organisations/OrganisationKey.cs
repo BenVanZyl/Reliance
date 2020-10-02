@@ -22,7 +22,7 @@ namespace Reliance.Web.ThisApp.Data.Organisation
         public long OrganisationId { get; private set; }
         public string PrivateKey { get; private set; }
         public string Description { get; private set; }
-        public DateTime ExpiryDateTime { get; private set; }
+        public DateTime ExpiryDate { get; private set; }
 
         [ForeignKey("OrganisationId")]
         public Organisation Organisation { get; private set; }
@@ -75,8 +75,8 @@ namespace Reliance.Web.ThisApp.Data.Organisation
 
         public void SetExpiryDate(DateTime value)
         {
-            if (ExpiryDateTime!= value)
-                ExpiryDateTime = value;
+            if (ExpiryDate!= value)
+                ExpiryDate = value;
         }
 
         #endregion //methods

@@ -5,9 +5,9 @@ namespace Reliance.Web.Client.Dto
     public class BaseDto
     {
         public long Id { get; set; }
-        public DateTime ModifyDateTime { get; set; }
+        public DateTime ModifiedOn { get; set; }
 
-        public string ModifyDateString => ModifyDateTime.ToString("yyyy-MM-dd HH:mm:ss");
-        public string ModifyDateTimeString => ModifyDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        public string ModifyDateString => ModifiedOn.ToString("yyyy-MM-dd HH:mm:ss");
+        public string ModifiedOnString => ModifiedOn.ToString("yyyy-MM-dd HH:mm:ss");
     }
 }

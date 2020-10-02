@@ -5,8 +5,8 @@ Begin
 	Create Table DevOps.Apps
 	(
 		Id					bigint	Identity(1,1) NOT NULL,
-		CreateDateTime		dateTime NOT NULL,
-		ModifyDateTime		dateTime NOT NULL,
+		CreatedOn		dateTime NOT NULL,
+		ModifiedOn		dateTime NOT NULL,
 		Name				varchar(1024) NOT NULL,
 		CONSTRAINT [PK_Apps] PRIMARY KEY CLUSTERED
 		(

@@ -9,7 +9,7 @@ Begin
 		('SnowStorm'),
 		('Reliance')
 
-	Insert into DevOps.Apps (CreateDateTime, ModifyDateTime, Name)
+	Insert into DevOps.Apps (CreatedOn, ModifiedOn, Name)
 		Select GetDate(), GetDate(), d.NameValue
 		From @data d
 		Where Not Exists (Select 1 From DevOps.Apps Where Name = d.NameValue)
@@ -17,11 +17,11 @@ Begin
 --Stages
 	Delete From @data
 	Insert Into @data(NameValue, OrderBy) Values
-		('Build'),
-		('Test'),
-		('Production')
+		('Build', 1),
+		('Test', 2),
+		('Production', 3)
 
-	Insert into DevOps.Stages (CreateDateTime, ModifyDateTime, Name)
+	Insert into DevOps.Stages (CreatedOn, ModifiedOn, Name, OrderBy)
 		Select GetDate(), GetDate(), d.NameValue, d.OrderBy
 		From @data d
 		Where Not Exists (Select 1 From DevOps.Stages Where Name = d.NameValue)
