@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Reliance.Web.Client.Dto.Organisations;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using System;
 using System.Collections.Generic;
 using System.Linq;

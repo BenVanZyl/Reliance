@@ -49,11 +49,7 @@ namespace Reliance.Web
             }); //for api controller & SyncFusion
 
             // Setup query executor & mediatr using SnowStorm package
-            var cnnString = PrivateSettings.ConnectionString;
-#if DEBUG
-            cnnString =  Configuration.GetConnectionString("DefaultConnection");
-#endif
-            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(cnnString)); // TODO: Move Azure Vault
+            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(ThisAppSettings.DataConnectionString)); // TODO: Move Azure Vault
 
             //configure all of snowstorm -- query executor, mediator, etc.
             SnowStorm.Infrastructure.Configurations.Setup.All(ref services, typeof(Startup).GetTypeInfo().Assembly, new MappingProfile());
@@ -102,7 +98,7 @@ namespace Reliance.Web
         private void ConfigureAuth(ref IServiceCollection services)
         {
 
-            services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); // TODO: Move Azure Vault
+            services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(ThisAppSettings.AuthConnectionString)); // TODO: Move Azure Vault
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<AuthDbContext>();
 

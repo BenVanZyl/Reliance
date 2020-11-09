@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Reliance.Web.Client;
 using Reliance.Web.Client.Dto.Organisations;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
 using Reliance.Web.ThisApp.Services.Queries.Organisations;
 using SnowStorm.Infrastructure.QueryExecutors;
@@ -35,19 +35,19 @@ namespace Reliance.Web.ThisApp.Services.Commands.Organisations
         {
             //do validation
             if (!long.TryParse(request.Data.OrganisationId, out long orgId))
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
             if (orgId == 0)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
 
             var orgKey = await _executor.Execute(new GetOrganisationKeyQuery(request.Data.Id));
             if (orgKey == null)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key record does not exists."));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key record does not exists."));
 
             if (orgKey.OrganisationId != orgId)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417InvalidObjectId("Organisation Id"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417InvalidObjectId("Organisation Id"));
 
             if (orgKey.PrivateKey != request.Data.PrivateKey)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417InvalidObjectId("Private Key"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417InvalidObjectId("Private Key"));
 
             if (!request.Data.ExpiryDate.HasValue)
                 request.Data.ExpiryDate = DateTime.Now.AddYears(3);

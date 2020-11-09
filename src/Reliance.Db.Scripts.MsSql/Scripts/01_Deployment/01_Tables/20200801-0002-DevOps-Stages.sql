@@ -7,6 +7,7 @@ Begin
 		Id					bigint	Identity(1,1) NOT NULL,
 		CreatedOn		dateTime NOT NULL,
 		ModifiedOn		dateTime NOT NULL,
+		OrganisationId	bigint NOT NULL,
 		Name				varchar(1024) NOT NULL,
 		OrderBy				bigint NOT NULL Default 0,
 		CONSTRAINT [PK_Stages] PRIMARY KEY CLUSTERED

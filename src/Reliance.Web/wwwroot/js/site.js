@@ -16,10 +16,9 @@ function dataBoundGrid(args) {
 
 function actionFailureGrid(args) {
     console.log(args);                        // here you will get exception message
-    console.log(args[0].error.status);
-    console.log(args[0].error.responseText);
-    var errorText = args[0].error.status + ": " + args[0].error.responseText;
-    console.log(errorText);
-    alert(errorText);
-    //"Error proccesing the request.  Please confirm that you have entered all data correctly. Contact us if the problem persists."
+    //console.log(args[0].error.status);
+    //console.log(args[0].error.responseText);
+    //var errorText = args[0].error.status + ": " + args[0].error.responseText;
+    //console.log(errorText);
+    alert("Error proccesing the request.  Please refresh the page and confirm that you have entered all data correctly. Contact us if the problem persists.");
 }

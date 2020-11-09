@@ -18,6 +18,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 {
     [Authorize]
     [RequireHttps]
+    //[ValidateAntiForgeryToken()]
     public class OrganisationMemberController : BaseController
     {
         public OrganisationMemberController(ILogger<object> logger, IQueryExecutor executor, IMediator mediator) : base(logger, executor, mediator)
@@ -36,20 +37,20 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
                 var results = new OrganisationMembersDto()
                 {
-                    Items = await Executor.WithMapping<OrganisationMemberDto>().Execute(new GetOrganisationMembersQuery(organisationId), o => o.Email)
+                    Items = await Executor.CastTo<OrganisationMemberDto>().Execute(new GetOrganisationMembersQuery(organisationId), o => o.Email)
                 };
 
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"GetOrgMembers, {ex.StatusCode}, {ex.Message}", ex);
-                throw new ThisAppExecption(ex.StatusCode, ex.Message);
+                throw new ThisAppException(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"GetOrgMembers, {StatusCodes.Status500InternalServerError}", ex);
-                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppException(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 
@@ -68,20 +69,20 @@ namespace Reliance.Web.ThisApp.Api.Organisations
                 //TODO: Secure api for valid subscription
 
                 if (organisationId != data.OrgId)
-                    throw new ThisAppExecption(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
+                    throw new ThisAppException(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
 
                 var results = await Mediator.Send(new CreateOrganisationMemberCommand(data));
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"PostOrgKey, {ex.StatusCode}, {ex.Message}", ex);
-                throw new ThisAppExecption(ex.StatusCode, ex.Message);
+                throw new ThisAppException(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"PostOrgKey, {StatusCodes.Status500InternalServerError}", ex);
-                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppException(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 
@@ -100,20 +101,20 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
                 //TODO: Secure api for valid subscription
                 if (organisationId.ToString() != data.OrganisationId)
-                    throw new ThisAppExecption(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
+                    throw new ThisAppException(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
 
                 var results = await Mediator.Send(new UpdateOrganisationMemberCommand(data));
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"PutOrgKey, {ex.StatusCode}, {ex.Message}", ex);
-                throw new ThisAppExecption(ex.StatusCode, ex.Message);
+                throw new ThisAppException(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"PutOrgKey, {StatusCodes.Status500InternalServerError}", ex);
-                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppException(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 
@@ -135,15 +136,15 @@ namespace Reliance.Web.ThisApp.Api.Organisations
                 var results = await Mediator.Send(new DeleteOrganisationMemberCommand(organisationId, id));
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"DeleteOrgKey, {ex.StatusCode}, {ex.Message}", ex);
-                throw new ThisAppExecption(ex.StatusCode, ex.Message);
+                throw new ThisAppException(ex.StatusCode, ex.Message);
             }
             catch (System.Exception ex)
             {
                 Logger.LogError($"DeleteOrgKey, {StatusCodes.Status500InternalServerError}", ex);
-                throw new ThisAppExecption(StatusCodes.Status500InternalServerError, Messages.Err500);
+                throw new ThisAppException(StatusCodes.Status500InternalServerError, Messages.Err500);
             }
         }
 

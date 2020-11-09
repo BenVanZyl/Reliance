@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Reliance.Web.Client;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System.Linq;
 
 namespace Reliance.Web.ThisApp.Services.Organisations.Queries
 {
-    public class GetOrganisationQuery : IMappableSingleItemQuery<Organisation>
+    public class GetOrganisationQuery : IQueryResultSingle<Organisation>
     {
         private readonly long? _id;
         private readonly string _name;
@@ -45,9 +45,9 @@ namespace Reliance.Web.ThisApp.Services.Organisations.Queries
                 return;
 
             if (string.IsNullOrWhiteSpace(_name))
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Name"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Name"));
             if (string.IsNullOrWhiteSpace(_masterEmail))
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Master Email Address"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Master Email Address"));
             //TODO: Validate that email address is valid with RegEx compare
 
         }

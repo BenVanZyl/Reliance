@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.ThisApp.Services.Queries.Organisations
 {
-    public class GetOrganisationKeyQuery : IMappableSingleItemQuery<OrganisationKey>
+    public class GetOrganisationKeyQuery : IQueryResultSingle<OrganisationKey>
     {
         private readonly long _id;
 

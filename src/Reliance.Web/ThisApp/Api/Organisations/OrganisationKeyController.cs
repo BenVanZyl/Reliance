@@ -15,6 +15,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 {
     [Authorize]
     [RequireHttps]
+    //[ValidateAntiForgeryToken()]
     public class OrganisationKeyController : BaseController
     {
         public OrganisationKeyController(ILogger<object> logger, IQueryExecutor executor, IMediator mediator) : base(logger, executor, mediator)
@@ -33,12 +34,12 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
                 var results = new OrganisationKeysDto()
                 {
-                    Items = await Executor.WithMapping<OrganisationKeyDto>().Execute(new GetOrganisationKeysQuery(organisationId), o => o.ExpiryDate)
+                    Items = await Executor.CastTo<OrganisationKeyDto>().Execute(new GetOrganisationKeysQuery(organisationId))
                 };
 
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"GetPrivateKeys, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);
@@ -65,12 +66,12 @@ namespace Reliance.Web.ThisApp.Api.Organisations
                 //TODO: Secure api for valid subscription
 
                 if (organisationId.ToString() != data.OrganisationId)
-                    throw new ThisAppExecption(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
+                    throw new ThisAppException(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
 
                 var results = await Mediator.Send(new CreateOrganisationKeyCommand(data));
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"PostOrgKey, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);
@@ -98,12 +99,12 @@ namespace Reliance.Web.ThisApp.Api.Organisations
 
                 //TODO: Secure api for valid subscription
                 if (organisationId.ToString() != data.OrganisationId)
-                    throw new ThisAppExecption(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
+                    throw new ThisAppException(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
 
                 var results = await Mediator.Send(new UpdateOrganisationKeyCommand(data));
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"PutOrgKey, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);
@@ -134,7 +135,7 @@ namespace Reliance.Web.ThisApp.Api.Organisations
                 var results = await Mediator.Send(new DeleteOrganisationKeyCommand(organisationId, id));
                 return Ok(results);
             }
-            catch (ThisAppExecption ex)
+            catch (ThisAppException ex)
             {
                 Logger.LogError($"DeleteOrgKey, {ex.StatusCode}, {ex.Message}", ex);
                 return StatusCode(ex.StatusCode, ex.Message);

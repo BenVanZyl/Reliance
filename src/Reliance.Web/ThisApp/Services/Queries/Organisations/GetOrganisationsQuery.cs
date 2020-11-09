@@ -1,10 +1,10 @@
-﻿using Reliance.Web.ThisApp.Data.Organisation;
+﻿using Reliance.Web.ThisApp.Domain.Organisation;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System.Linq;
 
 namespace Reliance.Web.ThisApp.Services.Organisations.Queries
 {
-    public class GetOrganisationsQuery : IMappableQuery<Organisation>
+    public class GetOrganisationsQuery : IQueryResultList<Organisation>
     {
         private readonly string _masterEmailAddress;
 

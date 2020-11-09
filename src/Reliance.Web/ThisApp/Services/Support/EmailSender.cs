@@ -25,12 +25,12 @@ namespace Reliance.Web.ThisApp.Services.Support
             {
                 if (_emailClient == null)
                 {
-                    _emailClient = new SmtpClient(PrivateSettings.EmailServerAddress)
+                    _emailClient = new SmtpClient(ThisAppSettings.EmailServerAddress)
                     {
                         UseDefaultCredentials = false,
-                        Port = PrivateSettings.EmailServerPort,
-                        EnableSsl = PrivateSettings.EmailEnableSsl,
-                        Credentials = new NetworkCredential(PrivateSettings.EmailUserName, PrivateSettings.EmailPassword) // TODO: better way?
+                        Port = ThisAppSettings.EmailServerPort,
+                        EnableSsl = ThisAppSettings.EmailEnableSsl,
+                        Credentials = new NetworkCredential(ThisAppSettings.EmailUserName, ThisAppSettings.EmailPassword) // TODO: better way?
                     };
                 }
                 return _emailClient;
@@ -59,7 +59,7 @@ namespace Reliance.Web.ThisApp.Services.Support
         {
             return new MailMessage
             {
-                From = new MailAddress(PrivateSettings.EmailUserName), // TODO: Mov to Azure Vault
+                From = new MailAddress(ThisAppSettings.EmailUserName), // TODO: Mov to Azure Vault
                 Subject = subject,
                 IsBodyHtml = IsHtmlBody,
                 Body = messageBody

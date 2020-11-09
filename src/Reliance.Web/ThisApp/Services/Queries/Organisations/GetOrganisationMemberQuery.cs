@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Reliance.Web.Client;
 using Reliance.Web.Client.Dto.Organisations;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System.Linq;
 
 namespace Reliance.Web.ThisApp.Services.Queries.Organisations
 {
-    public class GetOrganisationMemberQuery : IMappableSingleItemQuery<Member>
+    public class GetOrganisationMemberQuery : IQueryResultSingle<Member>
     {
         private readonly long? _id;
 
@@ -23,7 +23,7 @@ namespace Reliance.Web.ThisApp.Services.Queries.Organisations
         public GetOrganisationMemberQuery(long orgId, string email)
         {
             if (string.IsNullOrWhiteSpace(email))
-                throw new ThisAppExecption(StatusCodes.Status412PreconditionFailed, Messages.Err417MissingObjectData("Email Address"));
+                throw new ThisAppException(StatusCodes.Status412PreconditionFailed, Messages.Err417MissingObjectData("Email Address"));
 
             _orgId = orgId;
             _email = email;
@@ -32,7 +32,7 @@ namespace Reliance.Web.ThisApp.Services.Queries.Organisations
         public IQueryable<Member> Execute(IQueryableProvider queryableProvider)
         {
             if (!_id.HasValue && !_orgId.HasValue)
-                throw new ThisAppExecption(StatusCodes.Status412PreconditionFailed, Messages.Err417MissingObjectData(""));
+                throw new ThisAppException(StatusCodes.Status412PreconditionFailed, Messages.Err417MissingObjectData(""));
 
             var baseQuery = queryableProvider.Query<Member>();
 

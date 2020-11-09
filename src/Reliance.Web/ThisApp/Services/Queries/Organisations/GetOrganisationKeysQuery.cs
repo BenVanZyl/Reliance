@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Reliance.Web.Client;
 using Reliance.Web.Client.Dto.Organisations;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Reliance.Web.ThisApp.Services.Queries.Organisations
 {
-    public class GetOrganisationKeysQuery : IMappableQuery<OrganisationKey>
+    public class GetOrganisationKeysQuery : IQueryResultList<OrganisationKey>
     {
         private readonly long? _organisationId;
         private readonly OrganisationKeyDto _data;
@@ -32,7 +32,7 @@ namespace Reliance.Web.ThisApp.Services.Queries.Organisations
         {
             //validate query data
             if (!_organisationId.HasValue && _data == null)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key information"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key information"));
 
             var baseQuery = queryableProvider.Query<OrganisationKey>()
                 .Where(w => w.OrganisationId == _organisationId);

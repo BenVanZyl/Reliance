@@ -18,7 +18,7 @@
     <None Remove="Scripts\01_Deployment\01_Tables\20200520-0003-OrganisationMember.sql" />
     <None Remove="Scripts\01_Deployment\01_Tables\20200801-0001-DevOps-Apps.sql" />
     <None Remove="Scripts\01_Deployment\01_Tables\20200801-0002-DevOps-Stages.sql" />
-    <None Remove="Scripts\01_Deployment\01_Tables\20200801-0003-DevOps-Dashboard..sql" />
+    <None Remove="Scripts\01_Deployment\01_Tables\20200801-0003-DevOps-Badge..sql" />
     <None Remove="Scripts\01_Deployment\05_Data\20200801-0001-DevOps-Data.sql" />
   </ItemGroup>
 
@@ -37,7 +37,7 @@
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0002-OrganisationKey.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\00000000-0000-0001-EventLogging.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200801-0001-DevOps-Apps.sql" />
-    <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200801-0003-DevOps-Dashboard..sql" />
+    <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200801-0003-DevOps-Badge..sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200801-0002-DevOps-Stages.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\01_Tables\20200520-0003-OrganisationMember.sql" />
     <EmbeddedResource Include="Scripts\01_Deployment\05_Data\20200801-0001-DevOps-Data.sql" />
@@ -45,9 +45,9 @@
 
   <ItemGroup>
     <PackageReference Include="dbup-sqlserver" Version="4.4.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
   </ItemGroup>
 
 </Project>

@@ -22,9 +22,9 @@ namespace Reliance.Web
                 .AddJsonFile(configFileName)
                 .Build();
 
-            var cnnString = PrivateSettings.ConnectionString;
+            var cnnString = ThisAppSettings.DataConnectionString;
 #if DEBUG
-            cnnString = config.GetSection("ConnectionStrings:DefaultConnection").Value;
+            cnnString = config.GetSection("ConnectionStrings:DataConnection").Value;
 #endif
 
             //Initialize Logger

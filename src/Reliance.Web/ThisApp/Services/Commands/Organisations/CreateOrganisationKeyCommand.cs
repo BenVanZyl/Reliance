@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Reliance.Web.Client.Dto.Organisations;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System;
 using System.Collections.Generic;

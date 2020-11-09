@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Reliance.Web.Client;
 using Reliance.Web.Client.Dto.Organisations;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
 using Reliance.Web.ThisApp.Services.Queries.Organisations;
 using SnowStorm.Infrastructure.QueryExecutors;
@@ -35,16 +35,16 @@ namespace Reliance.Web.ThisApp.Services.Commands.Organisations
         {
             //do validation
             if (!long.TryParse(request.Data.OrganisationId, out long orgId))
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
             if (orgId == 0)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Organisation Id"));
 
             var orgMember = await _executor.Execute(new GetOrganisationMemberQuery(request.Data.Id));
             if (orgMember == null)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key record does not exists."));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key record does not exists."));
 
             if (orgMember.OrganisationId != orgId)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417InvalidObjectId("Organisation Id"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417InvalidObjectId("Organisation Id"));
 
             orgMember.SetName(request.Data.Name);
             orgMember.SetEmail(request.Data.Email);

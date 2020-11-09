@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Reliance.Web.Client;
 using Reliance.Web.Client.Dto.Organisations;
-using Reliance.Web.ThisApp.Data.Organisation;
+using Reliance.Web.ThisApp.Domain.Organisation;
 using Reliance.Web.ThisApp.Infrastructure;
 using SnowStorm.Infrastructure.QueryExecutors;
 using System.Linq;
 
 namespace Reliance.Web.ThisApp.Services.Queries.Organisations
 {
-    public class GetOrganisationMembersQuery : IMappableQuery<Member>
+    public class GetOrganisationMembersQuery : IQueryResultList<Member>
     {
         private readonly long? _organisationId;
         private readonly string _email;
@@ -28,7 +28,7 @@ namespace Reliance.Web.ThisApp.Services.Queries.Organisations
         {
             //validate query data
             if (!_organisationId.HasValue && string.IsNullOrWhiteSpace(_email))
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Member information"));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Member information"));
 
             var baseQuery = queryableProvider.Query<Member>()
                 .Where(w => w.OrganisationId == _organisationId);

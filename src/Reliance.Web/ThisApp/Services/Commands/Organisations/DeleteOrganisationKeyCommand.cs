@@ -40,10 +40,10 @@ namespace Reliance.Web.ThisApp.Services.Commands.Organisations
 
             var orgKey = await _executor.Execute(new GetOrganisationKeyQuery(request.Id));
             if (orgKey == null)
-                throw new ThisAppExecption(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key record does not exists."));
+                throw new ThisAppException(StatusCodes.Status417ExpectationFailed, Messages.Err417MissingObjectData("Private Key record does not exists."));
 
             if (orgKey.OrganisationId != request.OrganisationId)
-                throw new ThisAppExecption(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
+                throw new ThisAppException(StatusCodes.Status401Unauthorized, Messages.Err401Unauhtorised);
 
             await _executor.Delete(orgKey);
 
