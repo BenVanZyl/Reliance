@@ -28,56 +28,6 @@ namespace Reliance.Web.Pages
 
         }
 
-        public async Task OnPostProfileForm()
-        {
-            //var captchaResponse = Request.Form["g-recaptcha-response"];
-            var reCaptchaSecret = "6LcpqM4ZAAAAAAnEyFupS_c5Ts1qtDpznQcMx62r";
-            var reCaptchResponse = Request.Form["g-recaptcha-response"];
-
-            HttpClient httpClient = new HttpClient();
-            //var httpResponse = httpClient.GetAsync($"https://www.google.com/recaptcha/api/siteverify?secret={reCaptchaSecret}&response={reCaptchResponse}").Result;
-            //if (httpResponse.StatusCode != HttpStatusCode.OK)
-            //{
-            //    return;// errorResult.Value;
-            //}
-
-            //String jsonResponse = httpResponse.Content.ReadAsStringAsync().Result;
-            //dynamic jsonData = JObject.Parse(jsonResponse);
-            //if (jsonData.success != true.ToString().ToLower())
-            //{
-            //    return;// errorResult.Value;
-            //}
-
-            var content = new CaptchaCheckData()
-            {
-                secret = reCaptchaSecret,
-                response = reCaptchResponse
-            };
-
-            var contentString = JsonConvert.SerializeObject(content);
-
-            var response = await httpClient.PostAsync("https://www.google.com/recaptcha/api/siteverify", new StringContent(contentString, Encoding.UTF8, "application/json"));
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                return;// errorResult.Value;
-            }
-
-            var jsonResponse = response.Content.ReadAsStringAsync().Result;
-            dynamic data = JObject.Parse(jsonResponse);
-            if (data.success != true.ToString().ToLower())
-            {
-                return;// errorResult.Value;
-            }
-
-            //var result = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify");
-
-        }
-
-        private class CaptchaCheckData
-        {
-            public string secret { get; set; }
-            public string response { get; set; }
-        }
     }
 }
 
