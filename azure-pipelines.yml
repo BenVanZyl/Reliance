@@ -12,7 +12,8 @@ trigger:
       - refs/tags/*
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
+  #vmImage: 'ubuntu-latest'
 
 variables:
   buildPlatform: 'Any CPU'
@@ -62,18 +63,25 @@ steps:
     arguments: --output $(System.DefaultWorkingDirectory)/WebApp --configuration Release
 
 - task: DotNetCoreCLI@2
-  displayName: Build Reliance.Db.Scripts.MsSql
+  displayName: Build Reliance.DbScripts.MsSql
   inputs:
     command: 'build'
-    projects: '**/Reliance.Db.Scripts.MsSql.csproj'
+    projects: '**/Reliance.DbScripts.MsSql.csproj'
     arguments: --output $(System.DefaultWorkingDirectory)/DbUpdates --configuration Release
 
 - task: DotNetCoreCLI@2
   displayName: Build Tests
   inputs:
     command: 'build'
-    projects: '**/Reliance.Web.Test.csproj'
-    arguments: --output $(System.DefaultWorkingDirectory)/Tests --configuration Release
+    projects: '**/Reliance.Web.Tests.csproj'
+    arguments: --configuration Release
+
+- task: DotNetCoreCLI@2
+  displayName: Run Tests
+  inputs:
+    command: 'test'
+    projects: '**/Reliance.Web.Tests.csproj'
+    arguments: --configuration Release --logger "console;verbosity=detailed"
 
 - task: DotNetCoreCLI@2
   inputs:

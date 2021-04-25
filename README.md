@@ -1,6 +1,11 @@
-# Introduction 
+# Work in Progress (WIP)!
 
-NOTE: This is still being developed and not ready for production and also come with no warranties at all.
+    NOTE:    
+    This is still being developed and not ready for production. 
+    This also come with no warranties of any kind at all.
+
+
+# Introduction 
 
 This project is to provide an application (system) to help an organisaztion to keep track of what Nuget packages all their applications are using.  Know what your apps are relying on can help mitigate issue when it comes to breaking changes and which of your apps could be affected by this.
 
@@ -21,9 +26,9 @@ https://www.nuget.org/packages/SnowStorm/
 
        appsettings.Development.json => development settings
 
-- Reliance.Db.Scripts.MsSql
+- Reliance.DbScripts.MsSql
 - Reliance.Web
-4. Set Reliance.Db.Scripts.MsSql as start up project and run the code.  This should run the database scripts.
+4. Set Reliance.DbScripts.MsSql as start up project and run the code.  This should run the database scripts.
 5. Set Reliance.Web as start up project and run the code.
 
 
@@ -42,4 +47,4 @@ If you want to learn more about creating good readme files then refer the follow
 # Note
 
 Deployment command in Powershell for db up:
-dotnet.exe "$(System.DefaultWorkingDirectory)/_BenVanZyl.Reliance/drop/DbUpdates/Reliance.Db.Scripts.MsSql.dll" "$(DbUpConnectionString)"
+dotnet.exe "$(System.DefaultWorkingDirectory)/_BenVanZyl.Reliance/drop/DbUpdates/Reliance.DbScripts.MsSql.dll" "$(DbUpConnectionString)"

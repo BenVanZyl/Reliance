@@ -1,0 +1,51 @@
+﻿@page
+@model Reliance.Web.Pages.ConfigureModel
+@{
+    ViewData["Title"] = "Configure";
+}
+
+<div class="jumbotron">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <p>
+        @Model.StatusMessage
+    </p>
+}
+<form method="post">
+    <div class="row">
+        <div class="col-md-4 group-box">
+            <h2>Profile</h2>
+            <input asp-for="OrgData.Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="OrgData.Name"></label>
+                <input asp-for="OrgData.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="OrgData.MasterEmail"></label>
+                <input asp-for="OrgData.MasterEmail" class="form-control" />
+                <span asp-validation-for="OrgData.MasterEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button id="save-profile-button" type="submit" class="btn btn-secondary" asp-page-handler="SaveOrganisationDirect">
+                    Save (Direct)
+                </button>
+                <button id="save-profile-button" type="submit" class="btn btn-secondary" asp-page-handler="SaveOrganisationApiClient">
+                    Save (Api Client)
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-4 group-box">
+            <h2>Access Tokens</h2>
+        </div>
+        <div class="col-md-4 group-box">
+            <h2>Users</h2>
+        </div>
+    </div>
+</form>
+<p>
+    <a class="nav-link text-dark" asp-area="" asp-page="/ConfigureJQuery">Switch to JQuery page</a>
+</p>
